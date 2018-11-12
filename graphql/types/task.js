@@ -7,15 +7,8 @@ module.exports = new GraphQLObjectType({
   name: "Task",
   fields() {
     return {
-      id: {
-        type: GraphQLInt,
-        description: "Unique identifier of the task",
-        resolve(task) {
-          return task.id;
-        }
-      },
-      taskTemplateId: {
-        type: GraphQLInt,
+      templateId: {
+        type: GraphQLString,
         description: "Unique identifier of the related task",
         resolve(task) {
           return task.serviceId;

@@ -12,7 +12,7 @@ const CreateTaskInput = new GraphQLInputObjectType({
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt',
     fields() {
         return {
-            taskTemplateId: {
+            TemplateId: {
                 type: GraphQLInt,
                 description: 'Lorem ipsum dolar sit'
             }
@@ -25,7 +25,7 @@ const CreateTaskPayload = new GraphQLObjectType({
     description: 'Lorem ipsum dolar sit',
     fields() { 
         return {
-            taskTemplateId: {
+            TemplateId: {
                 type: GraphQLInt,
                 description: 'Lorem ipsum dolar sit'
             }

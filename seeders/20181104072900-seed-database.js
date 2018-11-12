@@ -12,22 +12,22 @@ module.exports = {
 
     await Models.Task.bulkCreate([{
       taskId: task.id,
-      taskTemplateId: 1,
+      TemplateId: 1,
       data: {},
       status: 'Lorem ipsum dolar sit.'
     }, {
       taskId: task.id,
-      taskTemplateId: 1,
+      TemplateId: 1,
       data: {},
       status: 'Lorem ipsum dolar sit.'
     }, {
       taskId: task.id,
-      taskTemplateId: 1,
+      TemplateId: 1,
       data: {},
       status: 'Lorem ipsum dolar sit.'
     }, {
       taskId: task.id,
-      taskTemplateId: 1,
+      TemplateId: 1,
       data: {},
       status: 'Lorem ipsum dolar sit.'
     }])

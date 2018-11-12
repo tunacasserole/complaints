@@ -8,7 +8,7 @@ module.exports = new GraphQLObjectType({
   fields() {
     return {
       id: {
-        type: GraphQLInt,
+        type: GraphQLString,
         description: "Unique identifier of the template",
         resolve(template) {
           return template.id;
@@ -16,10 +16,14 @@ module.exports = new GraphQLObjectType({
       },
       moduleName: {
         type: GraphQLInt,
-        description: "Unique identifier of the related template",
+        description: "Unique identifier of the module that will process this task",
         resolve(template) {
-          return template.serviceId;
+          return template.moduleName;
+        },
+        validate: {
+          isIn: [['','']],
         }
+       
       },
       moduleVersion: {
         type: GraphQLString,

@@ -10,10 +10,7 @@ const TemplateListType = new GraphQLObjectType({
   name: 'TemplateList',
   fields() {
     return {
-      id: {
-        type: GraphQLInt,
-        description: "Unique identifier of the service"
-      },
+
       moduleName: {
         type: GraphQLString,
       },

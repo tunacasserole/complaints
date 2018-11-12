@@ -2,13 +2,13 @@
 module.exports = (sequelize, DataTypes) => {
   const Task = sequelize.define('Task', {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       primaryKey: true,
       validate: {
           notEmpty: true
       }
     },
-    taskTemplateId: {
+    TemplateId: {
       type: DataTypes.INTEGER,
       validate: {
         notEmpty: true

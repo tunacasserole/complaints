@@ -2,7 +2,7 @@
 module.exports = (sequelize, DataTypes) => {
   const Template = sequelize.define('Template', {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       primaryKey: true,
       validate: {
         notEmpty: true
