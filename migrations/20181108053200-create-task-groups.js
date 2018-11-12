@@ -6,10 +6,10 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: DataTypes.UUID
       },
       name: {
-        type: Sequelize.STRING(100)
+        type: Sequelize.STRING
       },
       eta: {
         type: Sequelize.TIME
