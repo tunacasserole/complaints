@@ -29,7 +29,7 @@ module.exports = new GraphQLObjectType({
         type: GraphQLString,
         description: "The access level of the template",
         resolve(template) {
-          return template.access;
+          return template.moduleVersion;
         }
       },
       name: {
@@ -50,14 +50,14 @@ module.exports = new GraphQLObjectType({
         type: GraphQLString,
         description: "A brief description of the template",
         resolve(template) {
-          return template.description;
+          return template.version;
         }
       },
       configuration: {
         type: GraphQLString,
         description: "A brief description of the template",
         resolve(template) {
-          return template.description;
+          return template.configuration;
         }
       }
     };

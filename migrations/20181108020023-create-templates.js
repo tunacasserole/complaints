@@ -26,11 +26,11 @@ module.exports = {
       },
 
       // Audit
-      createdBy: Sequelize.INTEGER,
+      createdBy: Sequelize.UUID,
       createdAt: Sequelize.DATE,
-      updatedBy: Sequelize.INTEGER,
+      updatedBy: Sequelize.UUID,
       updatedAt: Sequelize.DATE,
-      deletedBy: Sequelize.INTEGER,
+      deletedBy: Sequelize.UUID,
       deletedAt: Sequelize.DATE,
     });
   },
