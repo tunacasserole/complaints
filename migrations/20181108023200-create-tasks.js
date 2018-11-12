@@ -6,13 +6,13 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: DataTypes.UUID
+        type: Sequelize.UUID
       },
       taskTemplateId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.UUID
       },
       taskGroupId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.UUID
       },
       eta: {
         type: Sequelize.TIME

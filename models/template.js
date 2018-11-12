@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       primaryKey: true,
       validate: {
-          notEmpty: true
+        notEmpty: true
       }
     },
     moduleName: {
