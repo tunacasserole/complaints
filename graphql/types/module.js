@@ -10,6 +10,7 @@ module.exports = new GraphQLObjectType({
         type: GraphQLString,
         description: "The name of the module.",
         resolve(module) {
+          connsole.log('yolo')
           return module.name;
         }
       }
