@@ -24,7 +24,7 @@ module.exports = {
       dependencies: {
         type: Sequelize.JSON
       },
-
+      
       // Audit
       createdBy: Sequelize.UUID,
       createdAt: Sequelize.DATE,

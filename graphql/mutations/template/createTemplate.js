@@ -12,7 +12,7 @@ const Models = require('../../../models/index.js')
 
 const CreateTemplateInput = new GraphQLInputObjectType({
     name: "CreateTemplateInput",
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt',
+    description: 'Create a new task template',
     fields() {
         return {
             moduleName: {

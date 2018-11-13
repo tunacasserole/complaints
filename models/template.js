@@ -34,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     version: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.FLOAT,
       validate: {
         notEmpty: true,
         len: [0,50]

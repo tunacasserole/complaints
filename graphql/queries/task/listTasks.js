@@ -39,7 +39,7 @@ const TaskListType = new GraphQLObjectType({
 
 module.exports = {
   type: new GraphQLList(TaskListType),
-  description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam fermentum sapien lacus, ut imperdiet orci elementum sed. Donec lobortis vel nunc sit amet luctus.',
+  description: 'Returns a list of all tasks in the system..',
   args: {
     limit: {
       type: GraphQLInt,
