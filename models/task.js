@@ -3,9 +3,10 @@ module.exports = (sequelize, DataTypes) => {
   const Task = sequelize.define('Task', {
     id: {
       type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV1,
       primaryKey: true,
       validate: {
-          notEmpty: true
+        notEmpty: true
       }
     },
     TemplateId: {
@@ -30,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       validate: {
         notEmpty: true,
-        len: [0,50]
+        len: [0, 50]
       }
     },
     data: {
@@ -45,17 +46,17 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: false
       }
     }
-  }, 
+  },
     {
       instanceMethods: {
-        perform: function(){
+        perform: function () {
           return 'you just performed this task, whatever that means.'
         },
-        finalize: function(){
+        finalize: function () {
           return 'you just finalized this task, whatever that means.'
+        }
       }
-    }
-  });
+    });
 
   return Task;
 };

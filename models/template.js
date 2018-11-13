@@ -3,6 +3,7 @@ module.exports = (sequelize, DataTypes) => {
   const Template = sequelize.define('Template', {
     id: {
       type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV1,
       primaryKey: true,
       validate: {
         notEmpty: true
@@ -30,14 +31,14 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.TEXT,
       validate: {
         notEmpty: true,
-        len: [0,50]
+        len: [0, 50]
       }
     },
     version: {
       type: DataTypes.FLOAT,
       validate: {
         notEmpty: true,
-        len: [0,50]
+        len: [0, 50]
       }
     },
     configuration: {
@@ -47,16 +48,16 @@ module.exports = (sequelize, DataTypes) => {
       }
     }
   },
-  {
-    instanceMethods: {
-      perform: function(){
-        return 'you just performed this task, whatever that means.'
-      },
-      finalize: function(){
-        return 'you just finalized this task, whatever that means.'
+    {
+      instanceMethods: {
+        perform: function () {
+          return 'you just performed this task, whatever that means.'
+        },
+        finalize: function () {
+          return 'you just finalized this task, whatever that means.'
+        }
       }
     }
-  }
   );
 
 

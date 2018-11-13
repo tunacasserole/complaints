@@ -3,9 +3,10 @@ module.exports = (sequelize, DataTypes) => {
   const TaskGroup = sequelize.define('TaskGroup', {
     id: {
       type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV1,
       primaryKey: true,
       validate: {
-      notEmpty: true
+        notEmpty: true
       }
     },
     eta: {
@@ -21,13 +22,13 @@ module.exports = (sequelize, DataTypes) => {
       }
     }
   },
-  {
-    instanceMethods: {
-      stubbedInstanceMethod: function(){
-        return 'ready to do something.'
+    {
+      instanceMethods: {
+        stubbedInstanceMethod: function () {
+          return 'ready to do something.'
+        }
       }
     }
-  }
   );
 
 
