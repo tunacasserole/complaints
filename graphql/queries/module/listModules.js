@@ -19,7 +19,7 @@ const ModuleListType = new GraphQLObjectType({
 
 module.exports = {
   type: new GraphQLList(GraphQLString),
-  description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam fermentum sapien lacus, ut imperdiet orci elementum sed. Donec lobortis vel nunc sit amet luctus.',
+  description: 'Returns a list of javascript modules available for task processing.',
   args: {
     
   },

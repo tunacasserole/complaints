@@ -8,7 +8,7 @@ module.exports = new GraphQLObjectType({
     return {
       name: {
         type: GraphQLString,
-        description: "The name of the module.",
+        description: "The name of the javascript module responsible for handling the given task.",
         resolve(module) {
           return module.name;
         }
