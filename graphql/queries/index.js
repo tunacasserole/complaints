@@ -7,6 +7,9 @@ const readTask = require('./task/readTask')
 const listTemplates = require('./template/listTemplates')
 const readTemplate = require('./template/readTemplate')
 
+// Modules
+const listModules = require('./module/ListModules')
+
 
 module.exports = {
 
@@ -18,4 +21,11 @@ module.exports = {
   listTemplates,
   readTemplate,
 
+
+  // Modules
+  listModules
+
+
+
+  
 };
