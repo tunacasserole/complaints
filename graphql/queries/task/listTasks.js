@@ -3,6 +3,8 @@ const GraphQLList = GraphQL.GraphQLList
 const GraphQLString = GraphQL.GraphQLString
 const GraphQLInt = GraphQL.GraphQLInt
 const GraphQLObjectType = GraphQL.GraphQLObjectType;
+const GraphQLUUID = GraphQL.GraphQLUUID;
+const GraphQLFloat = GraphQL.GraphQLFloat;
 
 const Models = require('../../../models/index.js')
 
@@ -11,14 +13,14 @@ const TaskListType = new GraphQLObjectType({
   fields() {
     return {
       id: {
-        type: GraphQLInt,
+        type: GraphQLUUID,
         description: "Unique identifier of the service"
       },
       moduleName: {
         type: GraphQLString,
       },
       moduleVersion: {
-        type: GraphQLInt,
+        type: GraphQLFloat,
       },
       name: {
         type: GraphQLString,
@@ -27,7 +29,7 @@ const TaskListType = new GraphQLObjectType({
         type: GraphQLString,
       },
       version: {
-        type: GraphQLInt,
+        type: GraphQLFloat,
       },
       configuration: {
         type: GraphQLString,
@@ -69,6 +71,6 @@ module.exports = {
     delete args.search
 
     // Issue query and return the promise
-    return await Models.Task.findAll({where: args, include: [], offset, limit })
+    return await Models.Task.findAll({ where: args, include: [], offset, limit })
   }
 };

@@ -1,21 +1,21 @@
 const GraphQL = require("graphql");
 const GraphQLObjectType = GraphQL.GraphQLObjectType;
 const GraphQLString = GraphQL.GraphQLString;
-const GraphQLInt = GraphQL.GraphQLInt;
+const GraphQLUUID = GraphQL.GraphQLUUID;
 
 module.exports = new GraphQLObjectType({
   name: "Task",
   fields() {
     return {
       templateId: {
-        type: GraphQLString,
+        type: GraphQLUUID,
         description: "Unique identifier of the related task",
         resolve(task) {
           return task.serviceId;
         }
       },
       taskGroupId: {
-        type: GraphQLString,
+        type: GraphQLUUID,
         description: "The access level of the task",
         resolve(task) {
           return task.access;

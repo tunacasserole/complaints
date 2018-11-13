@@ -3,6 +3,7 @@ const GraphQLList = GraphQL.GraphQLList
 const GraphQLString = GraphQL.GraphQLString
 const GraphQLInt = GraphQL.GraphQLInt
 const GraphQLObjectType = GraphQL.GraphQLObjectType;
+const GraphQLFloat = GraphQL.GraphQLFloat;
 
 const Models = require('../../../models/index.js')
 
@@ -10,12 +11,14 @@ const TemplateListType = new GraphQLObjectType({
   name: 'TemplateList',
   fields() {
     return {
-
+      id: {
+        type: GraphQLUUID
+      },
       moduleName: {
         type: GraphQLString,
       },
       moduleVersion: {
-        type: GraphQLInt,
+        type: GraphQLFloat,
       },
       name: {
         type: GraphQLString,
@@ -24,7 +27,7 @@ const TemplateListType = new GraphQLObjectType({
         type: GraphQLString,
       },
       version: {
-        type: GraphQLInt,
+        type: GraphQLFloat,
       },
       configuration: {
         type: GraphQLString,
@@ -65,6 +68,6 @@ module.exports = {
     delete args.search
 
     // Issue query and return the promise
-    return await Models.Task.findAll({where: args, include: [], offset, limit })
+    return await Models.Task.findAll({ where: args, include: [], offset, limit })
   }
 };

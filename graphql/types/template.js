@@ -2,13 +2,14 @@ const GraphQL = require("graphql");
 const GraphQLObjectType = GraphQL.GraphQLObjectType;
 const GraphQLString = GraphQL.GraphQLString;
 const GraphQLInt = GraphQL.GraphQLInt;
+const GraphQLUUID = GraphQL.GraphQLUUID;
 
 module.exports = new GraphQLObjectType({
   name: "Template",
   fields() {
     return {
       id: {
-        type: GraphQLString,
+        type: GraphQLUUID,
         description: "Unique identifier of the template",
         resolve(template) {
           return template.id;
@@ -21,9 +22,9 @@ module.exports = new GraphQLObjectType({
           return template.moduleName;
         },
         validate: {
-          isIn: [['','']],
+          isIn: [['', '']],
         }
-       
+
       },
       moduleVersion: {
         type: GraphQLString,
