@@ -2,7 +2,7 @@ const GraphQL = require("graphql");
 const GraphQLInputObjectType = GraphQL.GraphQLInputObjectType;
 const GraphQLObjectType = GraphQL.GraphQLObjectType;
 const GraphQLString = GraphQL.GraphQLString;
-const GraphQLInt = GraphQL.GraphQLInt;
+const GraphQLFloat = GraphQL.GraphQLFloat;
 const GraphQLList = GraphQL.GraphQLList;
 const GraphQLNonNull = GraphQL.GraphQLNonNull;
 
@@ -19,7 +19,7 @@ const CreateTemplateInput = new GraphQLInputObjectType({
                 type: new GraphQLNonNull(GraphQLString)
             },
             moduleVersion: {
-                type: new GraphQLNonNull(GraphQLInt)
+                type: new GraphQLNonNull(GraphQLFloat)
             },
             name: {
                 type: new GraphQLNonNull(GraphQLString)
@@ -28,7 +28,7 @@ const CreateTemplateInput = new GraphQLInputObjectType({
                 type: GraphQLString
             },
             version: {
-                type: GraphQLInt
+                type: GraphQLFloat
             },
             configuration: {
                 type: new GraphQLNonNull(GraphQLString),
@@ -58,19 +58,21 @@ const CreateTemplatePayload = new GraphQLObjectType({
         }
     }
 })
+
 module.exports = {
     type: CreateTemplatePayload,
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.',
+    description: 'CreateTemplatePayload description',
     args: {
         input: {
             type: CreateTemplateInput,
-            description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.',
+            description: 'CreateTemplateInput description',
         }
     },
 
     resolve: async (root, args) => {
-
-        // const instance = Models.Service.create(args.input)
+        console.log('yolocity')
+        const instance = Models.Template.create(args.input)
+        console.log(instance)
         return { message: "Not yet implemented" }
 
     }

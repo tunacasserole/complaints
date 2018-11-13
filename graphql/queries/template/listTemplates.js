@@ -4,6 +4,7 @@ const GraphQLString = GraphQL.GraphQLString
 const GraphQLInt = GraphQL.GraphQLInt
 const GraphQLObjectType = GraphQL.GraphQLObjectType;
 const GraphQLFloat = GraphQL.GraphQLFloat;
+const GraphQLID = GraphQL.GraphQLID;
 
 const Models = require('../../../models/index.js')
 
@@ -12,7 +13,7 @@ const TemplateListType = new GraphQLObjectType({
   fields() {
     return {
       id: {
-        type: GraphQLUUID
+        type: GraphQLID
       },
       moduleName: {
         type: GraphQLString,

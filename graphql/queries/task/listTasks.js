@@ -3,7 +3,7 @@ const GraphQLList = GraphQL.GraphQLList
 const GraphQLString = GraphQL.GraphQLString
 const GraphQLInt = GraphQL.GraphQLInt
 const GraphQLObjectType = GraphQL.GraphQLObjectType;
-const GraphQLUUID = GraphQL.GraphQLUUID;
+const GraphQLID = GraphQL.GraphQLID;
 const GraphQLFloat = GraphQL.GraphQLFloat;
 
 const Models = require('../../../models/index.js')
@@ -13,8 +13,8 @@ const TaskListType = new GraphQLObjectType({
   fields() {
     return {
       id: {
-        type: GraphQLUUID,
-        description: "Unique identifier of the service"
+        type: GraphQLID,
+        description: "Unique identifier of the task"
       },
       moduleName: {
         type: GraphQLString,
