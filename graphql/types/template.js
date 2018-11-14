@@ -17,7 +17,7 @@ module.exports = new GraphQLObjectType({
       },
       moduleName: {
         type: GraphQLInt,
-        description: "Unique identifier of the module that will process this task",
+        description: "Name of the module that will contain the logic for performing this task",
         resolve(template) {
           return template.moduleName;
         },
@@ -28,7 +28,7 @@ module.exports = new GraphQLObjectType({
       },
       moduleVersion: {
         type: GraphQLString,
-        description: "The access level of the template",
+        description: "Version of the task processing module",
         resolve(template) {
           return template.moduleVersion;
         }
@@ -49,14 +49,14 @@ module.exports = new GraphQLObjectType({
       },
       version: {
         type: GraphQLString,
-        description: "A brief description of the template",
+        description: "Version of the template.",
         resolve(template) {
           return template.version;
         }
       },
       configuration: {
         type: GraphQLString,
-        description: "A brief description of the template",
+        description: "A json configuration object with whatever the template needs to do its job.",
         resolve(template) {
           return template.configuration;
         }

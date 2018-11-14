@@ -16,10 +16,11 @@ const CreateTemplateInput = new GraphQLInputObjectType({
     fields() {
         return {
             moduleName: {
-                type: new GraphQLNonNull(GraphQLString)
+                type: new GraphQLNonNull(GraphQLString),
+                description: 'Must be one of the following: free, boolean, singleSelect, multiSelect, compute'
             },
             moduleVersion: {
-                type: new GraphQLNonNull(GraphQLFloat)
+                type: GraphQLFloat
             },
             name: {
                 type: new GraphQLNonNull(GraphQLString)
@@ -31,7 +32,7 @@ const CreateTemplateInput = new GraphQLInputObjectType({
                 type: GraphQLFloat
             },
             configuration: {
-                type: new GraphQLNonNull(GraphQLString),
+                type: GraphQLString,
                 description: 'A configuration object describing the task.'
             }
         }
@@ -82,9 +83,11 @@ module.exports = {
             })
             response.message = "There was an error creating the template"
             response.errors = errors
+
+            // return response
+            console.log(response)
         })
-        // return response
-        console.log(response)
+
         return response
-      }
+    }
 };

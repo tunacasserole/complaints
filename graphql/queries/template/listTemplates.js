@@ -15,14 +15,15 @@ const TemplateListType = new GraphQLObjectType({
       id: {
         type: GraphQLID
       },
+      name: {
+        type: GraphQLString,
+        unique: true
+      },
       moduleName: {
         type: GraphQLString,
       },
       moduleVersion: {
         type: GraphQLFloat,
-      },
-      name: {
-        type: GraphQLString,
       },
       description: {
         type: GraphQLString,
