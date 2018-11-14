@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     eta: {
       type: DataTypes.TIME,
       validate: {
-        allowNull: false
+        allowNull: true
       }
     },
     configuration: {

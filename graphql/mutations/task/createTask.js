@@ -2,31 +2,41 @@ const GraphQL = require("graphql");
 const GraphQLInputObjectType = GraphQL.GraphQLInputObjectType;
 const GraphQLObjectType = GraphQL.GraphQLObjectType;
 const GraphQLString = GraphQL.GraphQLString;
-const GraphQLInt = GraphQL.GraphQLInt;
+const GraphQLFloat = GraphQL.GraphQLFloat;
 const GraphQLList = GraphQL.GraphQLList;
+const GraphQLNonNull = GraphQL.GraphQLNonNull;
 
-const Models = require('../../../models/index.js');
+const ErrorType = require('../../types/error')
+const TaskType = require('../../types/task')
+const Models = require('../../../models/index.js')
 
 const CreateTaskInput = new GraphQLInputObjectType({
     name: "CreateTaskInput",
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt',
+    description: 'The primary required input to create a new task is the id of the template you wish to use.',
     fields() {
         return {
-            TemplateId: {
-                type: GraphQLInt,
-                description: 'Lorem ipsum dolar sit'
+            templateId: {
+                type: new GraphQLNonNull(GraphQLString)
             }
         }
     }
 })
 
 const CreateTaskPayload = new GraphQLObjectType({
-    name: 'CreateTaskPayload',
-    description: 'Lorem ipsum dolar sit',
-    fields() { 
+    name: "CreateTaskPayload",
+    description: 'The payload to be returned includes any errors, messages and the task itself.',
+    fields() {
         return {
-            TemplateId: {
-                type: GraphQLInt,
+            message: {
+                type: GraphQLString,
+                description: 'Lorem ipsum dolar sit'
+            },
+            errors: {
+                type: new GraphQLList(ErrorType),
+                description: 'Lorem ipsum dolar sit'
+            },
+            task: {
+                type: TaskType,
                 description: 'Lorem ipsum dolar sit'
             }
         }
@@ -34,19 +44,33 @@ const CreateTaskPayload = new GraphQLObjectType({
 })
 
 module.exports = {
-  type: CreateTaskPayload,
-  description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.',
-  args: {
-    input: {
-      type: CreateTaskInput,
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.',
+    type: CreateTaskPayload,
+    description: 'CreateTaskPayload description',
+    args: {
+        input: {
+            type: CreateTaskInput,
+            description: 'CreateTaskInput description',
+        }
+    },
+
+    resolve: async (root, args) => {
+        let response = {}
+        await Models.Task.create(args.input).then((task) => {
+            response.task = task
+        }).catch((err) => {
+            let errors = err.errors.map(error => {
+                return {
+                    code: error.path,
+                    message: error.message
+                }
+            })
+            response.message = "There was an error creating the task"
+            response.errors = errors
+
+            // return response
+            console.log(response)
+        })
+
+        return response
     }
-  },
-  
-  resolve: async (root, args) => {
-
-    // const instance = Models.Service.create(args.input)
-    return { message: "Not yet implemented" }
-
-  }
 };

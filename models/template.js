@@ -30,14 +30,14 @@ module.exports = (sequelize, DataTypes) => {
     description: {
       type: DataTypes.TEXT,
       validate: {
-        allowNull: truefalse,
+        allowNull: false,
         len: [0, 50]
       }
     },
     version: {
       type: DataTypes.FLOAT,
       validate: {
-        allowNull: truefalse,
+        allowNull: false,
         len: [0, 50]
       }
     },
