@@ -70,10 +70,21 @@ module.exports = {
     },
 
     resolve: async (root, args) => {
-        console.log('yolocity')
-        const instance = Models.Template.create(args.input)
-        console.log(instance)
-        return { message: "Not yet implemented" }
-
-    }
+        let response = {}
+        await Models.Template.create(args.input).then((template) => {
+            response.template = template
+        }).catch((err) => {
+            let errors = err.errors.map(error => {
+                return {
+                    code: error.path,
+                    message: error.message
+                }
+            })
+            response.message = "There was an error creating the template"
+            response.errors = errors
+        })
+        // return response
+        console.log(response)
+        return response
+      }
 };
