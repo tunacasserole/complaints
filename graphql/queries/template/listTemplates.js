@@ -73,6 +73,6 @@ module.exports = {
     delete args.search
 
     // Issue query and return the promise
-    return await Models.Task.findAll({ where: args, include: [], offset, limit })
+    return await Models.Template.findAll({ where: args, include: [], offset, limit })
   }
 };

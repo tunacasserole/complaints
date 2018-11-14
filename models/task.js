@@ -19,10 +19,13 @@ module.exports = (sequelize, DataTypes) => {
     },
     status: {
       type: DataTypes.STRING,
-      defaultValue: 'new',
-      validate: {
-        isIn: [['new', 'done']]
-      }
+      // defaultValue: 'new',
+      // validate: {
+      //   isIn: [['new', 'done']]
+      // }
+    },
+    disposition: {
+      type: DataTypes.STRING
     },
     data: {
       type: DataTypes.JSON,
@@ -30,21 +33,28 @@ module.exports = (sequelize, DataTypes) => {
     dependencies: {
       type: DataTypes.JSON,
     }
-  }
-  );
+  });
 
-  // Instance methods
-  Task.prototype.perform = function perform() {
-    console.log('performing task')
-    // TODO: check dependencies
+  // Instance Methods
+  Task.prototype.performTask = function (userDisposition) {
+    console.log('perform start')
 
-    // record disposition
-    this.disposition = 'blah blah'
+    // Compute Tasks: execute corresponding code module
 
+    // Data Capture Tasks: free, boolean, yesNo, singleSelect, multiSelect
+    // validate task in not already done
+    // validate disposition is valid
     // update status to done
-    this.status = 'done';
+    this.status = 'done'
+    // update disposition for task
+    this.disposition = userDisposition
 
+
+
+    this.save()
+    console.log('perform end')
   }
+
 
   return Task;
 };

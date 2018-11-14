@@ -16,8 +16,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     moduleVersion: {
       type: DataTypes.INTEGER,
-      validate: {
-      }
+      defaultValue: 1
     },
     name: {
       type: DataTypes.STRING,
@@ -34,6 +33,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     version: {
       type: DataTypes.FLOAT,
+      defaultValue: 1
     },
     configuration: {
       type: DataTypes.JSON,
