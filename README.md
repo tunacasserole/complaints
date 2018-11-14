@@ -11,7 +11,6 @@
 
 # Sample GraphQL Mutations
 
-
 ## Create Templates
 ```
 mutation {
@@ -53,7 +52,7 @@ mutation {
 ```
 
 
-## Create Task
+## Create Tasks
 
 ```
 mutation {
@@ -79,7 +78,24 @@ mutation {
 ```
 
 ## Perform Task
-
+```
+mutation {
+  performTask (input:{
+    taskId: "e4508c50-e84d-11e8-97b7-8f8a74faaf02",
+    disposition: "verified"
+  })
+  {
+    message
+    errors { 
+      code
+      message
+    }
+    task {
+     status
+    } 
+  }
+}
+```
 
 # Sample GraphQL Queries
 ## List Tasks
