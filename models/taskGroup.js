@@ -5,15 +5,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV1,
       primaryKey: true,
-      validate: {
-        allowNull: false
-      }
+      allowNull: false
     },
     eta: {
       type: DataTypes.TIME,
-      validate: {
-        allowNull: true
-      }
     },
     configuration: {
       type: DataTypes.JSON,

@@ -30,17 +30,13 @@ module.exports = (sequelize, DataTypes) => {
     dependencies: {
       type: DataTypes.JSON,
     }
-  },
-    {
-      instanceMethods: {
-        perform: function () {
-          return 'you just performed this task, whatever that means.'
-        },
-        finalize: function () {
-          return 'you just finalized this task, whatever that means.'
-        }
-      }
-    });
+  }
+  );
+
+  // Instance methods
+  Task.prototype.perform = function perform() {
+    console.log('performing task')
+  }
 
   return Task;
 };

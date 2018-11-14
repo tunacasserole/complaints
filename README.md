@@ -1,6 +1,7 @@
 # Microservice
-To setup locally 
+To setup local environment
 
+ensure mysql db is installed and running
 copy sample.env to .env with local db connect information
 npm install
 npm run db:create
@@ -12,6 +13,7 @@ npm start
 Sample GraphQL Mutations
 
 Create Task
+
 mutation {
   createTask (input:{
     templateId: "27cf5a40-e823-11e8-8107-af8c11b3126c"
@@ -23,8 +25,13 @@ mutation {
       message
     }
     task {
-      id
-    }
+      templateId
+      taskGroupId
+      eta
+      status
+      data
+      dependencies
+    } 
   }
 }
 
