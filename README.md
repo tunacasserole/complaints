@@ -37,7 +37,7 @@ mutation {
   createTemplate (input:{
     name: "Verify power cord",
     moduleName: "singleSelect",
-    dispositions: "unverified, verified, exception"
+    dispositions: "unverified,verified,exception"
   })
   {
     message

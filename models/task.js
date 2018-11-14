@@ -45,20 +45,26 @@ module.exports = (sequelize, DataTypes) => {
   }
 
   // Instance Methods
-  Task.prototype.performTask = function (userDisposition) {
-    // validate task in not already done
+  Task.prototype.performTask = async function (userDisposition) {
+
+    // validate task has not already been completed
     if (this.status === 'done') { return 'This task has already been performed.' }
 
-    // validate disposition for Data Capture Tasks: boolean, yesNo, singleSelect, multiSelect
-    sequelize.models.Template.findByPk(this.templateId).then(template => {
-      if (['singleSelect', 'multiSelect', 'boolean', 'yesNo'].includes(template.moduleName)) {
-        var dispositions = ['verified', 'unverified']
-        if (!dispositions.includes(userDisposition)) {
-          console.log('bad dispositon')
-          return 'Invalid disposition for this template'
-        }
+    // TODO: get template from eagerly loaded association
+    var template = await sequelize.models.Template.findByPk(this.templateId)
+
+    // validate custom disposition for Data Capture Tasks: singleSelect, multiSelect
+    if (['boolean', 'yesNo', 'singleSelect', 'multiSelect'].includes(template.moduleName)) {
+      switch (template.moduleName) {
+        case 'boolean': var dispositions = ['true', 'false'];
+        case 'yesNo': var dispositions = ['yes', 'no'];
+        case 'multiSelect':
+        case 'singleSelect': var dispositions = template.dispositions.split(',')
       }
-    })
+      if (!dispositions.includes(userDisposition)) {
+        return 'Invalid disposition for this template'
+      }
+    }
 
     // Compute Tasks: execute corresponding code module
     if (this.module === 'compute') {

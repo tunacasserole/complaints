@@ -2,8 +2,6 @@ const GraphQL = require("graphql");
 const GraphQLInputObjectType = GraphQL.GraphQLInputObjectType;
 const GraphQLObjectType = GraphQL.GraphQLObjectType;
 const GraphQLString = GraphQL.GraphQLString;
-const GraphQLInt = GraphQL.GraphQLInt;
-const GraphQLList = GraphQL.GraphQLList;
 
 const Models = require('../../../models/index.js');
 
