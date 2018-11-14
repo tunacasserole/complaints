@@ -7,11 +7,17 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       allowNull: false
     },
-    moduleName: {
+    type: {
       type: DataTypes.STRING,
       validate: {
         notEmpty: false,
         isIn: [['free', 'boolean', 'compute', 'date', 'multiSelect', 'singleSelect']]
+      }
+    },
+    moduleName: {
+      type: DataTypes.STRING,
+      validate: {
+        isIn: [['getTweet']]
       }
     },
     moduleVersion: {
@@ -44,19 +50,7 @@ module.exports = (sequelize, DataTypes) => {
     configuration: {
       type: DataTypes.JSON,
     }
-  },
-    {
-      instanceMethods: {
-        perform: function () {
-          return 'you just performed this task, whatever that means.'
-        },
-        finalize: function () {
-          return 'you just finalized this task, whatever that means.'
-        }
-      }
-    }
-  );
-
+  });
 
   return Template;
 };

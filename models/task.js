@@ -1,3 +1,5 @@
+const computers = require('../lib/modules')
+
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Task = sequelize.define('Task', {
@@ -76,9 +78,8 @@ module.exports = (sequelize, DataTypes) => {
 
     // Compute Tasks: execute corresponding code module
     if (template.type === 'compute') {
-      // Execute corresponding module 
-
-      return 'Executed computation module'
+      eval('computers.' + template.moduleName + '.perform()')
+      return 'Performed the ' + moduleName + ' module.'
     }
 
     // update status to done

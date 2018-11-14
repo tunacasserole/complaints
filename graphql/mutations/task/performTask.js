@@ -62,7 +62,7 @@ module.exports = {
         var task = await Models.Task.findByPk(args.input.taskId)
         response.message = task.performTask(args.input.disposition)
 
-        // Error handling for task not found 
+        // TODO: add Error handling for task not found 
 
         // Perform the task
         // await task.performTask(args.input.disposition).then((task) => {

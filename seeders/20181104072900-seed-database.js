@@ -93,6 +93,16 @@ module.exports = {
       taskGroupId: tg.id
     })
 
+    let t11 = await Models.Template.create({
+      name: 'Get a tweet from the president.',
+      type: 'compute',
+      moduleName: 'getTweet'
+    })
+    let task11 = await Models.Task.create({
+      templateId: t11.id,
+      taskGroupId: tg.id
+    })
+
   },
   down: function (queryInterface, Sequelize) {
 
