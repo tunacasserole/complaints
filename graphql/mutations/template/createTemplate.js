@@ -28,6 +28,9 @@ const CreateTemplateInput = new GraphQLInputObjectType({
             description: {
                 type: GraphQLString
             },
+            dispositions: {
+                type: GraphQLString
+            },
             version: {
                 type: GraphQLFloat
             },

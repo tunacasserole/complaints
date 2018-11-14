@@ -1,4 +1,3 @@
-# # Microservice
 # README
 # To setup local environment
 1. ensure mysql db is installed and running
@@ -22,8 +21,6 @@
 6. List tasks to see it was completed
 7. Repeat with a single select task
 	1. handle list of valid values
-
-
 
 
 # Sample GraphQL Mutations
@@ -53,6 +50,9 @@ mutation {
 }
 ```
 
+## Perform Task
+
+
 ## Create Template
 ```
 mutation {
@@ -74,7 +74,9 @@ mutation {
 ```
 
 
-## Sample GraphQL Queries
+# Sample GraphQL Queries
+## List Tasks
+
 ```
 {
   listTasks {
@@ -88,4 +90,21 @@ mutation {
   }
 }
 ```
+
+## List Templates
+
+```
+{
+  listTemplates {
+    id
+    moduleName
+    moduleVersion
+    name
+    description
+    version
+		configuration
+  }
+}
+```
+
 

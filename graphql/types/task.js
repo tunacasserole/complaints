@@ -36,6 +36,13 @@ module.exports = new GraphQLObjectType({
           return task.description;
         }
       },
+      disposition: {
+        type: GraphQLString,
+        description: "The end result of the task.  Must be within the list of valid dispositions for singleSelect and multiSelect tasks.",
+        resolve(task) {
+          return task.description;
+        }
+      },
       data: {
         type: GraphQLString,
         description: "A brief description of the task",

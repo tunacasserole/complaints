@@ -15,6 +15,20 @@ module.exports = new GraphQLObjectType({
           return template.id;
         }
       },
+      name: {
+        type: GraphQLString,
+        description: "The unique name for the template",
+        resolve(template) {
+          return template.name;
+        }
+      },
+      version: {
+        type: GraphQLString,
+        description: "Version of the template.",
+        resolve(template) {
+          return template.version;
+        }
+      },
       moduleName: {
         type: GraphQLInt,
         description: "Name of the module that will contain the logic for performing this task",
@@ -28,16 +42,9 @@ module.exports = new GraphQLObjectType({
       },
       moduleVersion: {
         type: GraphQLString,
-        description: "Version of the task processing module",
+        description: "Version of the task processing module to use when performing this task",
         resolve(template) {
           return template.moduleVersion;
-        }
-      },
-      name: {
-        type: GraphQLString,
-        description: "The unique name for the template",
-        resolve(template) {
-          return template.name;
         }
       },
       description: {
@@ -47,11 +54,11 @@ module.exports = new GraphQLObjectType({
           return template.description;
         }
       },
-      version: {
+      dispositions: {
         type: GraphQLString,
-        description: "Version of the template.",
+        description: "A comma separated list of values the user can select from to set the result of the task.  Leave blank for free text",
         resolve(template) {
-          return template.version;
+          return template.dispositions;
         }
       },
       configuration: {

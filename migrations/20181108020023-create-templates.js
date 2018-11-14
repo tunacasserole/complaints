@@ -6,20 +6,23 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.UUID
       },
+      name: {
+        type: Sequelize.STRING
+      },
+      version: {
+        type: Sequelize.FLOAT
+      },
       moduleName: {
         type: Sequelize.STRING
       },
       moduleVersion: {
         type: Sequelize.FLOAT
       },
-      name: {
-        type: Sequelize.STRING
-      },
       description: {
         type: Sequelize.TEXT
       },
-      version: {
-        type: Sequelize.FLOAT
+      dispositions: {
+        type: Sequelize.STRING
       },
       configuration: {
         type: Sequelize.JSON

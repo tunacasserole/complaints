@@ -18,13 +18,16 @@ module.exports = {
       status: {
         type: Sequelize.STRING
       },
+      disposition: {
+        type: Sequelize.STRING
+      },
       data: {
         type: Sequelize.JSON
       },
       dependencies: {
         type: Sequelize.JSON
       },
-      
+
       // Audit
       createdBy: Sequelize.UUID,
       createdAt: Sequelize.DATE,

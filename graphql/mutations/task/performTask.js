@@ -17,6 +17,9 @@ const PerformTaskInput = new GraphQLInputObjectType({
         return {
             taskId: {
                 type: new GraphQLNonNull(GraphQLString)
+            },
+            disposition: {
+                type: GraphQLString
             }
         }
     }
@@ -57,27 +60,24 @@ module.exports = {
         let response = {}
 
         // Find the task
-
         var task = await Models.Task.findByPk('90edcb50-e824-11e8-9994-8d641308d125')
-        console.log(task)
-        task.perform();
 
         // Perform the task
-        // await task.perform().then((task) => {
-        //     response.task = task
-        // }).catch((err) => {
-        //     let errors = err.errors.map(error => {
-        //         return {
-        //             code: error.path,
-        //             message: error.message
-        //         }
-        //     })
-        //     response.message = "There was an error performing the task"
-        //     response.errors = errors
+        await task.perform().then((task) => {
+            response.task = task
+        }).catch((err) => {
+            let errors = err.errors.map(error => {
+                return {
+                    code: error.path,
+                    message: error.message
+                }
+            })
+            response.message = "There was an error performing the task"
+            response.errors = errors
 
-        //     // return response
-        //     console.log(response)
-        // })
+            // return response
+            console.log(response)
+        })
 
         return response
     }

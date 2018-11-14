@@ -28,6 +28,9 @@ const TemplateListType = new GraphQLObjectType({
       description: {
         type: GraphQLString,
       },
+      dispositions: {
+        type: GraphQLString,
+      },
       version: {
         type: GraphQLFloat,
       },
