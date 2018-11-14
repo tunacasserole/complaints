@@ -44,9 +44,20 @@ module.exports = {
     },
 
     resolve: async (root, args) => {
+        let response = {}
+        await Models.TaskGroup.create(args.input).then((taskGroup) => {
+            response.taskGroup = taskGroup
+        }).catch((err) => {
+            let errors = err.errors.map(error => {
+                return {
+                    code: error.path,
+                    message: error.message
+                }
+            })
+            response.message = "There was an error creating the taskGroup"
+            response.errors = errors
+        })
 
-        // const instance = Models.Service.create(args.input)
-        return { message: "Not yet implemented" }
-
+        return response
     }
 };
