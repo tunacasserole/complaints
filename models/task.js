@@ -52,12 +52,12 @@ module.exports = (sequelize, DataTypes) => {
     // validate task has not already been completed
     if (this.status === 'done') { return 'This task has already been performed.' }
 
-    // TODO: get template from eagerly loaded association
+    // TODO: need to get this template from eagerly loaded association
     var template = await sequelize.models.Template.findByPk(this.templateId)
 
     // validate custom disposition for Data Capture Tasks: singleSelect, multiSelect
-    if (['boolean', 'yesNo', 'singleSelect', 'multiSelect'].includes(template.moduleName)) {
-      switch (template.moduleName) {
+    if (['boolean', 'yesNo', 'singleSelect', 'multiSelect'].includes(template.type)) {
+      switch (template.type) {
         case 'boolean': var dispositions = ['true', 'false'];
         case 'yesNo': var dispositions = ['yes', 'no'];
         default: var dispositions = template.dispositions.split(',')
@@ -68,14 +68,16 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     // validate disposition is a date field for date based data capture tasks
-    if (template.moduleName === 'date') {
+    if (template.type === 'date') {
       if (!userDisposition instanceof Date) {
         return 'Disposition must be a valid date'
       }
     }
 
     // Compute Tasks: execute corresponding code module
-    if (this.module === 'compute') {
+    if (template.type === 'compute') {
+      // Execute corresponding module 
+
       return 'Executed computation module'
     }
 
