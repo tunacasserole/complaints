@@ -58,28 +58,31 @@ module.exports = (sequelize, DataTypes) => {
     var template = await sequelize.models.Template.findByPk(this.templateId)
 
     // validate custom disposition for Data Capture Tasks: singleSelect, multiSelect
-    if (['boolean', 'yesNo', 'singleSelect', 'multiSelect'].includes(template.type)) {
+    if (['boolean', 'date', 'yesNo', 'select', 'multiSelect'].includes(template.type)) {
       switch (template.type) {
         case 'boolean': var dispositions = ['true', 'false'];
         case 'yesNo': var dispositions = ['yes', 'no'];
         default: var dispositions = template.dispositions.split(',')
       }
+
       if (!dispositions.includes(userDisposition)) {
         return 'Invalid disposition for this template.  Valid dispositions are: ' + dispositions.toString()
       }
-    }
 
-    // validate disposition is a date field for date based data capture tasks
-    if (template.type === 'date') {
-      if (!userDisposition instanceof Date) {
-        return 'Disposition must be a valid date'
+      // validate disposition is a date field for date based data capture tasks
+      if (template.type === 'date') {
+        if (!userDisposition instanceof Date) {
+          return 'Disposition must be a valid date'
+        }
       }
+
+      // TODO: validate dispositions for multiSelect
     }
 
     // Compute Tasks: execute corresponding code module
     if (template.type === 'compute') {
       eval('computers.' + template.moduleName + '.perform()')
-      return 'Performed the ' + moduleName + ' module.'
+      return 'Performed the ' + template.moduleName + ' module.'
     }
 
     // update status to done

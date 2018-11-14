@@ -11,14 +11,11 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       validate: {
         notEmpty: false,
-        isIn: [['free', 'boolean', 'compute', 'date', 'multiSelect', 'singleSelect']]
+        isIn: [['free', 'boolean', 'compute', 'date', 'select', 'multiple']]
       }
     },
     moduleName: {
       type: DataTypes.STRING,
-      validate: {
-        isIn: [['getTweet']]
-      }
     },
     moduleVersion: {
       type: DataTypes.INTEGER,
@@ -26,6 +23,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     name: {
       type: DataTypes.STRING,
+      unique: true,
       validate: {
         notEmpty: false,
       }
@@ -50,7 +48,22 @@ module.exports = (sequelize, DataTypes) => {
     configuration: {
       type: DataTypes.JSON,
     }
-  });
+  }, {
+      validate: {
+        moduleNameRequiredForCompute() {
+          console.log(this.moduleName)
+          if ((this.type === 'compute') && (this.moduleName == undefined)) {
+            throw new Error('ModuleName is required for compute tasks.')
+          }
+        },
+        dispositionsRequiredForSelectAndMultiSelect() {
+          if ((this.type === '') && (this.moduleName === null)) {
+            throw new Error('A list of possible dispositions must be provided for this template type.')
+          }
+        }
+      }
+    }
+  );
 
   return Template;
 };

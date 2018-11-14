@@ -15,15 +15,18 @@ const CreateTemplateInput = new GraphQLInputObjectType({
     description: 'Create a new task template',
     fields() {
         return {
+            name: {
+                type: new GraphQLNonNull(GraphQLString)
+            },
+            type: {
+                type: new GraphQLNonNull(GraphQLString)
+            },
             moduleName: {
-                type: new GraphQLNonNull(GraphQLString),
-                description: 'Must be one of the following: boolean, compute, date, free, multiselect, select'
+                type: GraphQLString,
+                description: 'Must be one of the following: boolean, compute, date, free, select, multiple'
             },
             moduleVersion: {
                 type: GraphQLFloat
-            },
-            name: {
-                type: new GraphQLNonNull(GraphQLString)
             },
             description: {
                 type: GraphQLString
