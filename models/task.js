@@ -58,11 +58,10 @@ module.exports = (sequelize, DataTypes) => {
       switch (template.moduleName) {
         case 'boolean': var dispositions = ['true', 'false'];
         case 'yesNo': var dispositions = ['yes', 'no'];
-        case 'multiSelect':
-        case 'singleSelect': var dispositions = template.dispositions.split(',')
+        default: var dispositions = template.dispositions.split(',')
       }
       if (!dispositions.includes(userDisposition)) {
-        return 'Invalid disposition for this template'
+        return 'Invalid disposition for this template.  Valid dispositions are: ' + dispositions.toString()
       }
     }
 
