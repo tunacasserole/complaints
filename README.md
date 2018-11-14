@@ -1,35 +1,36 @@
-# Microservice
-To setup local environment
+# # Microservice
+# README
+# To setup local environment
+1. ensure mysql db is installed and running
+2. copy sample.env to .env with local db connect information
+3. Then run:
+	1. `npm install`
+	2. `npm run db:create`
+	3. `npm run db:migrate`
+	4. `npm run db:seed`
+	5. `npm start`
 
-ensure mysql db is installed and running
-copy sample.env to .env with local db connect information
-npm install
-npm run db:create
-npm run db:migrate
-npm run db:seed
-npm start
-
-Demo Steps
-List available modules
-Create a free text task template
-List templates to see it was created
-Instantiate a task from the template
-Perform the task
-  check dependencies
-  record disposition
-  update status to done
-List tasks to see it was completed
-
-Repeat with a single select task
-  handle list of valid values
-
-
+# Demo Steps
+1. List available modules
+2. Create a free text task template
+3. List templates to see it was created
+4. Instantiate a task from the template
+5. Perform the task.
+	1. check dependencies
+	2. record disposition
+	3. update status to done
+6. List tasks to see it was completed
+7. Repeat with a single select task
+	1. handle list of valid values
 
 
-Sample GraphQL Mutations
 
-Create Task
 
+# Sample GraphQL Mutations
+
+## Create Task
+
+```
 mutation {
   createTask (input:{
     templateId: "27cf5a40-e823-11e8-8107-af8c11b3126c"
@@ -50,8 +51,10 @@ mutation {
     } 
   }
 }
+```
 
-Create Template
+## Create Template
+```
 mutation {
   createTemplate (input:{
     name: "Template1",
@@ -68,7 +71,21 @@ mutation {
     }
   }
 }
+```
 
-Sample GraphQL Queries
 
-List
+## Sample GraphQL Queries
+```
+{
+  listTasks {
+    id
+    moduleName
+    moduleVersion
+    name
+    description
+    version
+		configuration
+  }
+}
+```
+
