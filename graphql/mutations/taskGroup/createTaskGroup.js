@@ -9,12 +9,12 @@ const Models = require('../../../models/index.js');
 
 const CreateTaskGroupInput = new GraphQLInputObjectType({
     name: "CreateTaskGroupInput",
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt',
+    description: 'All that is needed to create a new task group is a name.',
     fields() {
         return {
-            TemplateId: {
-                type: GraphQLInt,
-                description: 'Lorem ipsum dolar sit'
+            name: {
+                type: new GraphQLNonNull(GraphQLString),
+                description: 'Name of the new task group you wish to create.'
             }
         }
     }
@@ -22,31 +22,31 @@ const CreateTaskGroupInput = new GraphQLInputObjectType({
 
 const CreateTaskGroupPayload = new GraphQLObjectType({
     name: 'CreateTaskGroupPayload',
-    description: 'Lorem ipsum dolar sit',
-    fields() { 
+    description: 'The payload to be returned includes any errors, messages and the task group itself.',
+    fields() {
         return {
-            TemplateId: {
-                type: GraphQLInt,
-                description: 'Lorem ipsum dolar sit'
+            name: {
+                type: new GraphQLNonNull(GraphQLString),
+                description: 'the name of the task group that was created.'
             }
         }
     }
 })
 
 module.exports = {
-  type: CreateTaskGroupPayload,
-  description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.',
-  args: {
-    input: {
-      type: CreateTaskGroupInput,
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.',
+    type: CreateTaskGroupPayload,
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.',
+    args: {
+        input: {
+            type: CreateTaskGroupInput,
+            description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.',
+        }
+    },
+
+    resolve: async (root, args) => {
+
+        // const instance = Models.Service.create(args.input)
+        return { message: "Not yet implemented" }
+
     }
-  },
-  
-  resolve: async (root, args) => {
-
-    // const instance = Models.Service.create(args.input)
-    return { message: "Not yet implemented" }
-
-  }
 };

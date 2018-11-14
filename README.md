@@ -9,6 +9,22 @@ npm run db:migrate
 npm run db:seed
 npm start
 
+Demo Steps
+List available modules
+Create a free text task template
+List templates to see it was created
+Instantiate a task from the template
+Perform the task
+  check dependencies
+  record disposition
+  update status to done
+List tasks to see it was completed
+
+Repeat with a single select task
+  handle list of valid values
+
+
+
 
 Sample GraphQL Mutations
 

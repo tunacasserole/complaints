@@ -14,34 +14,18 @@ const TaskListType = new GraphQLObjectType({
     return {
       id: {
         type: GraphQLID,
-        description: "Unique identifier of the task"
-      },
-      moduleName: {
-        type: GraphQLString,
-      },
-      moduleVersion: {
-        type: GraphQLFloat,
+        description: "Unique identifier of the Task Group"
       },
       name: {
         type: GraphQLString,
-      },
-      description: {
-        type: GraphQLString,
-      },
-      version: {
-        type: GraphQLFloat,
-      },
-      configuration: {
-        type: GraphQLString,
-      },
-
+      }
     }
   }
 })
 
 module.exports = {
   type: new GraphQLList(TaskListType),
-  description: 'Returns a list of all tasks in the system..',
+  description: 'Returns a list of all task groups in the system..',
   args: {
     limit: {
       type: GraphQLInt,

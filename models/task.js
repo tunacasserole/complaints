@@ -36,6 +36,14 @@ module.exports = (sequelize, DataTypes) => {
   // Instance methods
   Task.prototype.perform = function perform() {
     console.log('performing task')
+    // TODO: check dependencies
+
+    // record disposition
+    this.disposition = 'blah blah'
+
+    // update status to done
+    this.status = 'done';
+
   }
 
   return Task;
