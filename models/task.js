@@ -5,46 +5,30 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV1,
       primaryKey: true,
-      validate: {
-        allowNull: false
-      }
+      allowNull: false
     },
-    TemplateId: {
+    templateId: {
       type: DataTypes.INTEGER,
-      validate: {
-        allowNull: false
-      }
+      allowNull: false
     },
     taskGroupId: {
       type: DataTypes.INTEGER,
-      validate: {
-        allowNull: false
-      }
     },
     eta: {
       type: DataTypes.TIME,
-      validate: {
-        allowNull: false
-      }
     },
     status: {
       type: DataTypes.STRING,
+      defaultValue: 'new',
       validate: {
-        allowNull: false,
-        len: [0, 50]
+        isIn: [['new', 'done']]
       }
     },
     data: {
       type: DataTypes.JSON,
-      validate: {
-        notEmpty: false
-      }
     },
     dependencies: {
       type: DataTypes.JSON,
-      validate: {
-        notEmpty: false
-      }
     }
   },
     {
