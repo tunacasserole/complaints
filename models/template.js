@@ -56,8 +56,8 @@ module.exports = (sequelize, DataTypes) => {
             throw new Error('ModuleName is required for compute tasks.')
           }
         },
-        dispositionsRequiredForSelectAndMultiSelect() {
-          if ((this.type === '') && (this.moduleName === null)) {
+        dispositionListRequiredForSelectAndMultiSelect() {
+          if ((['select', 'multiSelect'].includes(this.type)) && (this.moduleName === null)) {
             throw new Error('A list of possible dispositions must be provided for this template type.')
           }
         }
