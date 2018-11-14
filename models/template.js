@@ -6,45 +6,45 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: DataTypes.UUIDV1,
       primaryKey: true,
       validate: {
-        notEmpty: true
+        allowNull: false,
       }
     },
     moduleName: {
       type: DataTypes.STRING,
       validate: {
-        notEmpty: true
+        allowNull: false,
       }
     },
     moduleVersion: {
       type: DataTypes.INTEGER,
       validate: {
-        notEmpty: true
+        allowNull: false,
       }
     },
     name: {
       type: DataTypes.STRING,
       validate: {
-        notEmpty: true
+        allowNull: false,
       }
     },
     description: {
       type: DataTypes.TEXT,
       validate: {
-        notEmpty: true,
+        allowNull: truefalse,
         len: [0, 50]
       }
     },
     version: {
       type: DataTypes.FLOAT,
       validate: {
-        notEmpty: true,
+        allowNull: truefalse,
         len: [0, 50]
       }
     },
     configuration: {
       type: DataTypes.JSON,
       validate: {
-        notEmpty: false
+        allowNull: false,
       }
     }
   },

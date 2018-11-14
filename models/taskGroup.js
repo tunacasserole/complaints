@@ -6,19 +6,19 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: DataTypes.UUIDV1,
       primaryKey: true,
       validate: {
-        notEmpty: true
+        allowNull: false
       }
     },
     eta: {
       type: DataTypes.TIME,
       validate: {
-        notEmpty: true
+        allowNull: false
       }
     },
     configuration: {
       type: DataTypes.JSON,
       validate: {
-        notEmpty: false
+        allowNull: true
       }
     }
   },
