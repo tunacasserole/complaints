@@ -51,8 +51,17 @@ mutation {
 }
 ```
 
+## Create Task Group
+```
+mutation {
+  createTaskGroup(input: {
+    name: "New group of tasks"}) {
+    name
+  }
+}
+```
 
-## Create Tasks
+## Create Task
 
 ```
 mutation {

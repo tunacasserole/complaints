@@ -2,6 +2,7 @@ const GraphQL = require("graphql");
 const GraphQLInputObjectType = GraphQL.GraphQLInputObjectType;
 const GraphQLObjectType = GraphQL.GraphQLObjectType;
 const GraphQLString = GraphQL.GraphQLString;
+const GraphQLNonNull = GraphQL.GraphQLNonNull;
 
 const Models = require('../../../models/index.js');
 
@@ -24,7 +25,7 @@ const CreateTaskGroupPayload = new GraphQLObjectType({
     fields() {
         return {
             name: {
-                type: new GraphQLNonNull(GraphQLString),
+                type: GraphQLString,
                 description: 'the name of the task group that was created.'
             }
         }
