@@ -19,10 +19,10 @@ module.exports = (sequelize, DataTypes) => {
     },
     status: {
       type: DataTypes.STRING,
-      // defaultValue: 'new',
-      // validate: {
-      //   isIn: [['new', 'done']]
-      // }
+      defaultValue: 'new',
+      validate: {
+        isIn: [['new', 'done']]
+      }
     },
     disposition: {
       type: DataTypes.STRING
@@ -39,22 +39,26 @@ module.exports = (sequelize, DataTypes) => {
   Task.prototype.performTask = function (userDisposition) {
     console.log('perform start')
 
-    // Compute Tasks: execute corresponding code module
-
-    // Data Capture Tasks: free, boolean, yesNo, singleSelect, multiSelect
     // validate task in not already done
-    // validate disposition is valid
+    if (this.status === 'done') { return 'This task has already been performed.' }
+
+    // validate disposition for Data Capture Tasks: free, boolean, yesNo, singleSelect, multiSelect
+    if (this.status === 'done') { return 'Invalid dispositon for this task.' }
+
+    // Compute Tasks: execute corresponding code module
+    if (this.module === 'compute') {
+      return 'Executed computation module'
+    }
+
     // update status to done
     this.status = 'done'
+
     // update disposition for task
     this.disposition = userDisposition
-
-
 
     this.save()
     console.log('perform end')
   }
-
 
   return Task;
 };

@@ -60,8 +60,7 @@ module.exports = {
         let response = {}
 
         var task = await Models.Task.findByPk(args.input.taskId)
-        task.performTask(args.input.disposition)
-        console.log(args.input.disposition)
+        response.message = task.performTask(args.input.disposition)
 
         // Perform the task
         // await task.performTask().then((task) => {
