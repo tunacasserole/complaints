@@ -47,6 +47,8 @@ module.exports = (sequelize, DataTypes) => {
   // Instance Methods
   Task.prototype.performTask = async function (userDisposition) {
 
+    // TODO: Check Dependencies
+
     // validate task has not already been completed
     if (this.status === 'done') { return 'This task has already been performed.' }
 
@@ -62,6 +64,13 @@ module.exports = (sequelize, DataTypes) => {
       }
       if (!dispositions.includes(userDisposition)) {
         return 'Invalid disposition for this template.  Valid dispositions are: ' + dispositions.toString()
+      }
+    }
+
+    // validate disposition is a date field for date based data capture tasks
+    if (template.moduleName === 'date') {
+      if (!userDisposition instanceof Date) {
+        return 'Disposition must be a valid date'
       }
     }
 

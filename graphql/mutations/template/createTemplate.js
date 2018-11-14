@@ -17,7 +17,7 @@ const CreateTemplateInput = new GraphQLInputObjectType({
         return {
             moduleName: {
                 type: new GraphQLNonNull(GraphQLString),
-                description: 'Must be one of the following: free, boolean, singleSelect, multiSelect, compute'
+                description: 'Must be one of the following: boolean, compute, date, free, multiselect, select'
             },
             moduleVersion: {
                 type: GraphQLFloat

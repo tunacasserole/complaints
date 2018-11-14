@@ -10,6 +10,9 @@ module.exports = (sequelize, DataTypes) => {
     eta: {
       type: DataTypes.TIME,
     },
+    name: {
+      type: DataTypes.STRING
+    },
     configuration: {
       type: DataTypes.JSON,
       validate: {

@@ -12,6 +12,9 @@ module.exports = {
       version: {
         type: Sequelize.FLOAT
       },
+      type: {
+        type: Sequelize.STRING
+      },
       moduleName: {
         type: Sequelize.STRING
       },

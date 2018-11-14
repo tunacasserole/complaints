@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       validate: {
         notEmpty: false,
-        isIn: [['free', 'compute', 'boolean', 'multiSelect', 'singleSelect']]
+        isIn: [['free', 'boolean', 'compute', 'date', 'multiSelect', 'singleSelect']]
       }
     },
     moduleVersion: {
@@ -32,6 +32,9 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     dispositions: {
+      type: DataTypes.STRING,
+    },
+    type: {
       type: DataTypes.STRING,
     },
     version: {
