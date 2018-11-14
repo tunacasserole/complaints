@@ -35,15 +35,30 @@ module.exports = (sequelize, DataTypes) => {
     }
   });
 
+  // Task.belongsTo(Template)
+
+  Task.associate = function (models) {
+    models.Task.belongsTo(models.Template, {
+      foreignKey: "id",
+      sourceKey: "templateId"
+    })
+  }
+
   // Instance Methods
   Task.prototype.performTask = function (userDisposition) {
-    console.log('perform start')
-
     // validate task in not already done
     if (this.status === 'done') { return 'This task has already been performed.' }
 
-    // validate disposition for Data Capture Tasks: free, boolean, yesNo, singleSelect, multiSelect
-    if (this.status === 'done') { return 'Invalid dispositon for this task.' }
+    // validate disposition for Data Capture Tasks: boolean, yesNo, singleSelect, multiSelect
+    sequelize.models.Template.findByPk(this.templateId).then(template => {
+      if (['singleSelect', 'multiSelect', 'boolean', 'yesNo'].includes(template.moduleName)) {
+        var dispositions = ['verified', 'unverified']
+        if (!dispositions.includes(userDisposition)) {
+          console.log('bad dispositon')
+          return 'Invalid disposition for this template'
+        }
+      }
+    })
 
     // Compute Tasks: execute corresponding code module
     if (this.module === 'compute') {
@@ -56,8 +71,10 @@ module.exports = (sequelize, DataTypes) => {
     // update disposition for task
     this.disposition = userDisposition
 
-    this.save()
-    console.log('perform end')
+    this.save().then(() => {
+      return 'Succesfully performed the task.'
+    })
+
   }
 
   return Task;

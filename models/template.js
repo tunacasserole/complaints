@@ -31,6 +31,9 @@ module.exports = (sequelize, DataTypes) => {
         len: [0, 50]
       }
     },
+    dispositions: {
+      type: DataTypes.STRING,
+    },
     version: {
       type: DataTypes.FLOAT,
       defaultValue: 1
