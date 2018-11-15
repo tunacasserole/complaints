@@ -60,7 +60,10 @@ module.exports = {
         let response = {}
 
         var task = await Models.Task.findByPk(args.input.taskId)
-        response.message = task.performTask(args.input.disposition)
+        if (task === null) 
+            { response.message = "No task found for that ID" }
+        else
+            { response.message = task.performTask(args.input.disposition) }
 
         // TODO: add Error handling for task not found 
 

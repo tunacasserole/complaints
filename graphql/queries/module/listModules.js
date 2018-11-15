@@ -26,7 +26,7 @@ module.exports = {
   resolve: async (root, args) => {
 
     var fs = require('fs');
-    var files = fs.readdirSync('./lib/task_modules/');
+    var files = fs.readdirSync('./lib/modules/');
 
     // Issue query and return the promise
     return files
