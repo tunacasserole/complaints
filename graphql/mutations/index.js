@@ -8,8 +8,7 @@ module.exports = {
     createTask,
     performTask,
 
-    createTemplate,
-
+    createTemplate, 
     createTaskGroup,
 
 };

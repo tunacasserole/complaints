@@ -36,15 +36,7 @@ const PerformTaskPayload = new GraphQLObjectType({
             message: {
                 type: GraphQLString,
                 description: 'Any success or failure message associated with the execution of this mutation'
-            },
-            // errors: {
-            //     type: new GraphQLList(ErrorType),
-            //     description: 'Error code and description'
-            // },
-            // task: {
-            //     type: TaskType,
-            //     description: 'Task that was performed gets returned in its final state.'
-            // }
+            }
         }
     }
 })
@@ -68,6 +60,8 @@ module.exports = {
         else
             { response.message = task.performTask(args.input.disposition, args.input.configuration) }
 
+        // TODO: handle dispositioning of compute task
+        
         // Perform the task
         // await task.performTask(args.input.disposition).then((task) => {
         //     response.task = task

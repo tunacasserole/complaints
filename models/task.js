@@ -48,8 +48,10 @@ module.exports = (sequelize, DataTypes) => {
 
   // INSTANCE METHODS
   Task.prototype.performTask = async function (userDisposition, configuration) {
-    console.log(configuration)
     // TODO: Check Dependencies
+    if (this.dependencies) { 
+      
+    }
 
     // validate task has not already been completed
     if (this.status === 'done') { return 'This task has already been performed.' }
