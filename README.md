@@ -90,18 +90,10 @@ mutation {
 ```
 mutation {
   performTask (input:{
-    taskId: "3b19a140-e860-11e8-993e-55d66341f752",
-    disposition: "verified"
+    taskId: "f9587c20-e87a-11e8-b4b3-b1f97907c6b7",
   })
   {
     message
-    errors { 
-      code
-      message
-    }
-    task {
-     status
-    } 
   }
 }
 ```

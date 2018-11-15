@@ -27,6 +27,7 @@ module.exports = {
 
     var fs = require('fs');
     var files = fs.readdirSync('./lib/modules/');
+    files.pop()
 
     // Issue query and return the promise
     return files

@@ -47,8 +47,8 @@ module.exports = (sequelize, DataTypes) => {
   }
 
   // INSTANCE METHODS
-  Task.prototype.performTask = async function (userDisposition) {
-
+  Task.prototype.performTask = async function (userDisposition, configuration) {
+    console.log(configuration)
     // TODO: Check Dependencies
 
     // validate task has not already been completed
@@ -58,42 +58,38 @@ module.exports = (sequelize, DataTypes) => {
     var template = await sequelize.models.Template.findByPk(this.templateId)
 
     // validate custom disposition for Data Capture Tasks: singleSelect, multiSelect
-    if (['boolean', 'date', 'yesNo', 'select', 'multiSelect'].includes(template.type)) {
+    if (['boolean', 'yesNo', 'select', 'multiSelect'].includes(template.type)) {
       switch (template.type) {
         case 'boolean': var dispositions = ['true', 'false'];
         case 'yesNo': var dispositions = ['yes', 'no'];
-        default: var dispositions = template.dispositions.split(',')
+        case 'select': var dispositions = template.dispositions.split(',');
+        case 'multiSelect': var dispositions = template.dispositions.split(',');
+        // TODO: handle validating multiple dispositions for multiSelect
       }
 
       if (!dispositions.includes(userDisposition)) {
         return 'Invalid disposition for this template.  Valid dispositions are: ' + dispositions.toString()
       }
-
-      // validate disposition is a date field for date based data capture tasks
-      if (template.type === 'date') {
-        if (!userDisposition instanceof Date) {
-          return 'Disposition must be a valid date'
-        }
-      }
-
-      // TODO: validate dispositions for multiSelect
     }
+
+    // validate disposition is a date field for date based data capture tasks
+    if (template.type === 'date') {
+      if (!userDisposition instanceof Date) {
+        return 'Disposition must be a valid date'
+      }
+    }
+    
+    // update disposition for task
+    this.disposition = userDisposition
+  
+    // update status to done
+    this.status = 'done'
+    this.save()
 
     // Compute Tasks: execute corresponding code module
     if (template.type === 'compute') {
-      eval('computers.' + template.moduleName + '.perform()')
-      return 'Performed the ' + template.moduleName + ' module.'
+      return await eval('computers.' + template.moduleName + '.perform(' + '{}' + ')')
     }
-
-    // update status to done
-    this.status = 'done'
-
-    // update disposition for task
-    this.disposition = userDisposition
-
-    this.save().then(() => {
-      return 'Succesfully performed the task.'
-    })
 
   }
 

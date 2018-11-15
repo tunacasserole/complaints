@@ -7,7 +7,7 @@ const ModuleType = require('../../types/module.js')
 
 module.exports = {
   type: ModuleType,
-  description: 'Returns a single module for the supplied Module id.',
+  description: 'Returns a single module with metadata and configuration information for the supplied Module name.',
   args: {
     name: {
       type: GraphQLString,
@@ -20,6 +20,6 @@ module.exports = {
   },
   
   resolve: async (root, args) => {
-    return await Models.Module.findById(args.id)
+    return 'not yet implemented'
   }
 };

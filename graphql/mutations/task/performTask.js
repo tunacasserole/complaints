@@ -20,6 +20,9 @@ const PerformTaskInput = new GraphQLInputObjectType({
             },
             disposition: {
                 type: GraphQLString
+            },
+            configuration: {
+                type: GraphQLString
             }
         }
     }
@@ -34,14 +37,14 @@ const PerformTaskPayload = new GraphQLObjectType({
                 type: GraphQLString,
                 description: 'Any success or failure message associated with the execution of this mutation'
             },
-            errors: {
-                type: new GraphQLList(ErrorType),
-                description: 'Error code and description'
-            },
-            task: {
-                type: TaskType,
-                description: 'Task that was performed gets returned in its final state.'
-            }
+            // errors: {
+            //     type: new GraphQLList(ErrorType),
+            //     description: 'Error code and description'
+            // },
+            // task: {
+            //     type: TaskType,
+            //     description: 'Task that was performed gets returned in its final state.'
+            // }
         }
     }
 })
@@ -63,9 +66,7 @@ module.exports = {
         if (task === null) 
             { response.message = "No task found for that ID" }
         else
-            { response.message = task.performTask(args.input.disposition) }
-
-        // TODO: add Error handling for task not found 
+            { response.message = task.performTask(args.input.disposition, args.input.configuration) }
 
         // Perform the task
         // await task.performTask(args.input.disposition).then((task) => {
@@ -84,6 +85,7 @@ module.exports = {
         //     console.log(response)
         // })
 
+        response.task = task
         return response
     }
 };
