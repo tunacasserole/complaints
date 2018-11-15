@@ -8,7 +8,7 @@
     "db:drop": "./node_modules/.bin/sequelize db:drop --config ./config/sequelize.js",
     "db:create": "./node_modules/.bin/sequelize db:create --config ./config/sequelize.js",
     "db:migrate": "./node_modules/.bin/sequelize db:migrate --config ./config/sequelize.js",
-    "db:rebuild": "npm run db:drop && npm run db:create && npm run db:migrate && npm run db:seed",
+    "db:rebuild": "npm run db:drop && npm run db:create && npm run db:migrate && npm run db:seed && npm start",
     "db:seed": "./node_modules/.bin/sequelize db:seed:all --config ./config/sequelize.js",
     "test": "jest"
   },

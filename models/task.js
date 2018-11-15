@@ -46,7 +46,7 @@ module.exports = (sequelize, DataTypes) => {
     })
   }
 
-  // Instance Methods
+  // INSTANCE METHODS
   Task.prototype.performTask = async function (userDisposition) {
 
     // TODO: Check Dependencies
