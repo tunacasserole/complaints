@@ -7,11 +7,11 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       allowNull: false
     },
-    type: {
+    resultType: {
       type: DataTypes.STRING,
       validate: {
         notEmpty: false,
-        isIn: [['free', 'boolean', 'compute', 'date', 'select', 'multiple']]
+        isIn: [['free', 'yesNo', 'regex', 'boolean', 'date', 'select', 'multiple', 'compute']]
       }
     },
     moduleName: {
@@ -35,18 +35,12 @@ module.exports = (sequelize, DataTypes) => {
         len: [0, 50]
       }
     },
-    dispositions: {
-      type: DataTypes.STRING,
-    },
-    type: {
+    results: {
       type: DataTypes.STRING,
     },
     version: {
       type: DataTypes.FLOAT,
       defaultValue: 1
-    },
-    configuration: {
-      type: DataTypes.JSON,
     }
   }, {
       validate: {
@@ -56,14 +50,23 @@ module.exports = (sequelize, DataTypes) => {
             throw new Error('ModuleName is required for compute tasks.')
           }
         },
-        dispositionListRequiredForSelectAndMultiSelect() {
+        resultListRequiredForSelectAndMultiSelect() {
           if ((['select', 'multiSelect'].includes(this.type)) && (this.moduleName === null)) {
-            throw new Error('A list of possible dispositions must be provided for this template type.')
+            throw new Error('A list of possible results must be provided for select and multiple.')
           }
         }
       }
     }
   );
+
+  Template.associate = function (models) {
+
+    // Template has many tasks
+    models.Template.hasMany(models.Task, {
+      foreignKey: "templateId",
+      sourceKey: "id"
+    })
+  }
 
   return Template;
 };

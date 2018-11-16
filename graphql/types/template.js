@@ -3,6 +3,9 @@ const GraphQLObjectType = GraphQL.GraphQLObjectType;
 const GraphQLString = GraphQL.GraphQLString;
 const GraphQLInt = GraphQL.GraphQLInt;
 const GraphQLID = GraphQL.GraphQLID;
+const GraphQLList = GraphQL.GraphQLList;
+const TaskType = require('./task')
+const Models = require('../../models/index.js')
 
 module.exports = new GraphQLObjectType({
   name: "Template",
@@ -38,7 +41,6 @@ module.exports = new GraphQLObjectType({
         validate: {
           isIn: [['', '']],
         }
-
       },
       moduleVersion: {
         type: GraphQLString,
@@ -54,19 +56,41 @@ module.exports = new GraphQLObjectType({
           return template.description;
         }
       },
-      dispositions: {
+      resultType: {
         type: GraphQLString,
+        description: "The kind of result for data capture."
+      },
+      results: {
+        type: new GraphQLList(GraphQLString),
         description: "A comma separated list of values the user can select from to set the result of the task.  Leave blank for free text",
         resolve(template) {
-          return template.dispositions;
+          return template.results;
         }
       },
-      configuration: {
-        type: GraphQLString,
-        description: "A json configuration object with whatever the template needs to do its job.",
-        resolve(template) {
-          return template.configuration;
+      tasks: {
+        type: new GraphQLList(TaskType),
+        description: "The tasks associated to the template",
+        async resolve(template) {
+          let response = {}
+          await template.getTasks().then((taskData) => {
+            response.tasks = taskData
+          }).catch((err) => {
+              let errors = err.errors.map(error => {
+                  return {
+                      code: error.path,
+                      message: error.message
+                  }
+              })
+              response.message = "There was an error creating the template"
+              response.errors = errors
+          })
+
+          // return response
+          console.log(response)
+          return response.tasks
+
         }
+
       }
     };
   }

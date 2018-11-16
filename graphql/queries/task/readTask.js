@@ -1,6 +1,7 @@
 const GraphQL = require('graphql')
 const GraphQLInt = GraphQL.GraphQLInt
 const GraphQLNonNull = GraphQL.GraphQLNonNull
+const GraphQLString = GraphQL.GraphQLString
 
 const Models = require('../../../models/index.js')
 const TaskType = require('../../types/task.js')
@@ -10,7 +11,7 @@ module.exports = {
   description: 'Returns a single task for the supplied task id.',
   args: {
     id: {
-      type: new GraphQLNonNull(GraphQLInt),
+      type: new GraphQLNonNull(GraphQLString),
       description: 'The unique identifier of the task.',
     }
   },

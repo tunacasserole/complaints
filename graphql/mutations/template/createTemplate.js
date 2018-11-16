@@ -31,7 +31,7 @@ const CreateTemplateInput = new GraphQLInputObjectType({
             description: {
                 type: GraphQLString
             },
-            dispositions: {
+            results: {
                 type: GraphQLString
             },
             version: {
@@ -52,15 +52,15 @@ const CreateTemplatePayload = new GraphQLObjectType({
         return {
             message: {
                 type: GraphQLString,
-                description: 'Lorem ipsum dolar sit'
+                description: 'Success or failure message.'
             },
             errors: {
                 type: new GraphQLList(ErrorType),
-                description: 'Lorem ipsum dolar sit'
+                description: 'The error codes and descriptions for any unsuccesful request'
             },
             template: {
                 type: TemplateType,
-                description: 'Lorem ipsum dolar sit'
+                description: 'The template that was created.'
             }
         }
     }
@@ -68,11 +68,11 @@ const CreateTemplatePayload = new GraphQLObjectType({
 
 module.exports = {
     type: CreateTemplatePayload,
-    description: 'CreateTemplatePayload description',
+    description: 'CreateTemplatePayload',
     args: {
         input: {
             type: CreateTemplateInput,
-            description: 'CreateTemplateInput description',
+            description: 'CreateTemplateInput',
         }
     },
 

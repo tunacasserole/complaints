@@ -1,15 +1,17 @@
 const GraphQL = require("graphql");
 const GraphQLObjectType = GraphQL.GraphQLObjectType;
 const GraphQLString = GraphQL.GraphQLString;
-const GraphQLInt = GraphQL.GraphQLInt;
-const GraphQLUUID = GraphQL.GraphQLUUID;
+const GraphQLList = GraphQL.GraphQLList;
+const GraphQLID = GraphQL.GraphQLID;
+const TaskType = require('./task')
+const Models = require('../../models/index.js')
 
 module.exports = new GraphQLObjectType({
   name: "TaskGroup",
   fields() {
     return {
       id: {
-        type: GraphQLUUID,
+        type: GraphQLID,
         description: "Unique identifier of the TaskGroup",
         resolve(taskGroup) {
           return taskGroup.id;
@@ -29,20 +31,31 @@ module.exports = new GraphQLObjectType({
           return taskGroup.description;
         }
       },
-      version: {
-        type: GraphQLString,
-        description: "A brief description of the taskGroup",
-        resolve(taskGroup) {
-          return taskGroup.description;
-        }
-      },
-      configuration: {
-        type: GraphQLString,
-        description: "A brief description of the taskGroup",
-        resolve(taskGroup) {
-          return taskGroup.description;
+      tasks: {
+        type: new GraphQLList(TaskType),
+        description: "The tasks associated to the group",
+        async resolve(taskGroup) {
+          let response = {}
+          await taskGroup.getTasks().then((taskData) => {
+            response.tasks = taskData
+          }).catch((err) => {
+            let errors = err.errors.map(error => {
+              return {
+                code: error.path,
+                message: error.message
+              }
+            })
+            response.message = "There was an error creating the group"
+            response.errors = errors
+          })
+
+          // return response
+          console.log(response)
+          return response.tasks
+
         }
       }
-    };
+    }
   }
+
 });

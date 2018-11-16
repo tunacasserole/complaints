@@ -9,8 +9,8 @@ module.exports = {
       name: {
         type: Sequelize.STRING
       },
-      eta: {
-        type: Sequelize.TIME
+      ownerId: {
+        type: Sequelize.UUID
       },
 
       // Audit
@@ -18,8 +18,7 @@ module.exports = {
       createdAt: Sequelize.DATE,
       updatedBy: Sequelize.UUID,
       updatedAt: Sequelize.DATE,
-      deletedBy: Sequelize.UUID,
-      deletedAt: Sequelize.DATE,
+
     });
   },
   down: (queryInterface, Sequelize) => {

@@ -7,24 +7,10 @@ const GraphQLID = GraphQL.GraphQLID;
 const GraphQLFloat = GraphQL.GraphQLFloat;
 
 const Models = require('../../../models/index.js')
-
-const TaskListType = new GraphQLObjectType({
-  name: 'TaskList',
-  fields() {
-    return {
-      id: {
-        type: GraphQLID,
-        description: "Unique identifier of the Task Group"
-      },
-      name: {
-        type: GraphQLString,
-      }
-    }
-  }
-})
+const TaskGroup = require('../../types/taskGroup.js')
 
 module.exports = {
-  type: new GraphQLList(TaskListType),
+  type: new GraphQLList(TaskGroup),
   description: 'Returns a list of all task groups in the system..',
   args: {
     limit: {
@@ -55,6 +41,6 @@ module.exports = {
     delete args.search
 
     // Issue query and return the promise
-    return await Models.Task.findAll({ where: args, include: [], offset, limit })
+    return await Models.TaskGroup.findAll({ where: args, include: [], offset, limit })
   }
 };

@@ -15,8 +15,9 @@
 ```
 mutation {
   createTemplate (input:{
-    name: "Manual task",
-    moduleName: "free"
+    name: "Ship the product.",
+    type:"boolean",
+    moduleName: "",
   })
   {
     message
@@ -35,8 +36,8 @@ mutation {
 mutation {
   createTemplate (input:{
     name: "Verify power cord",
-    moduleName: "singleSelect",
-    dispositions: "unverified,verified,exception"
+    type: "singleSelect",
+    results: "unverified,verified,exception"
   })
   {
     message
@@ -66,7 +67,7 @@ mutation {
 ```
 mutation {
   createTask (input:{
-    templateId: "231e48c0-e838-11e8-9dae-090619a00cd5"
+    templateId: "26d743f0-e8fa-11e8-8808-e3da952258b6"
   })
   {
     message
@@ -77,7 +78,7 @@ mutation {
     task {
       templateId
       taskGroupId
-      eta
+      dueDate
       status
       data
       dependencies
@@ -90,7 +91,7 @@ mutation {
 ```
 mutation {
   performTask (input:{
-    taskId: "f9587c20-e87a-11e8-b4b3-b1f97907c6b7",
+    taskId: "280f09f0-e9a5-11e8-b0d0-a36f25ef6629",
   })
   {
     message
@@ -100,19 +101,23 @@ mutation {
 
 # Sample GraphQL Queries
 ## List Tasks
-
 ```
 {
-  listTasks {
+  listTemplates {
     id
+    resultType
     moduleName
     moduleVersion
     name
     description
     version
-		configuration
+		tasks {
+      name
+      status
+    }
   }
 }
+
 ```
 
 ## List Templates
@@ -121,17 +126,32 @@ mutation {
 {
   listTemplates {
     id
+    resultType
     moduleName
     moduleVersion
     name
     description
     version
-		configuration
+		tasks {
+      name
+      status
+    }
   }
 }
 ```
 
-
+## Read Task Group
+```
+{
+  readTaskGroup(id: "28043480-e9a5-11e8-b0d0-a36f25ef6629") {
+    name
+    tasks {
+    	name
+      status
+    }
+  }
+}
+```
 
 # Demo Steps
 1. List available modules

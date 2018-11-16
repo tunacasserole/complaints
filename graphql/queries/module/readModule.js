@@ -1,8 +1,5 @@
 const GraphQL = require('graphql')
-const GraphQLInt = GraphQL.GraphQLInt
-const GraphQLNonNull = GraphQL.GraphQLNonNull
-
-const Models = require('../../../models/index.js')
+const GraphQLString = GraphQL.GraphQLString
 const ModuleType = require('../../types/module.js')
 
 module.exports = {

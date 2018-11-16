@@ -7,27 +7,21 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       allowNull: false
     },
-    eta: {
-      type: DataTypes.TIME,
-    },
     name: {
-      type: DataTypes.STRING
-    },
-    configuration: {
-      type: DataTypes.JSON,
-      validate: {
-        allowNull: true
-      }
+      type: DataTypes.STRING,
+      unique: true,
     }
-  },
-    {
-      instanceMethods: {
-        stubbedInstanceMethod: function () {
-          return 'ready to do something.'
-        }
-      }
-    }
+  }
   );
+
+  TaskGroup.associate = function (models) {
+
+    // TaskGroup has many tasks
+    models.TaskGroup.hasMany(models.Task, {
+      foreignKey: "taskGroupId",
+      sourceKey: "id"
+    })
+  }
 
   return TaskGroup;
 };

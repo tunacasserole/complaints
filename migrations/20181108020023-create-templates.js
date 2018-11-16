@@ -12,7 +12,7 @@ module.exports = {
       version: {
         type: Sequelize.FLOAT
       },
-      type: {
+      resultType: {
         type: Sequelize.STRING
       },
       moduleName: {
@@ -24,11 +24,14 @@ module.exports = {
       description: {
         type: Sequelize.TEXT
       },
-      dispositions: {
+      results: {
         type: Sequelize.STRING
       },
       configuration: {
         type: Sequelize.JSON
+      },
+      offset: {
+        type: Sequelize.INTEGER
       },
 
       // Audit
@@ -36,8 +39,7 @@ module.exports = {
       createdAt: Sequelize.DATE,
       updatedBy: Sequelize.UUID,
       updatedAt: Sequelize.DATE,
-      deletedBy: Sequelize.UUID,
-      deletedAt: Sequelize.DATE,
+      
     });
   },
   down: (queryInterface, Sequelize) => {

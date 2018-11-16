@@ -26,8 +26,8 @@ module.exports = {
   readTemplate,
 
   // Groups
-  listGroups,
-  readGroup,
+  listTaskGroups,
+  readTaskGroup,
 
   // Modules
   listModules,

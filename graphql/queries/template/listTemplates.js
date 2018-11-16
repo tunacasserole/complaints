@@ -5,45 +5,51 @@ const GraphQLInt = GraphQL.GraphQLInt
 const GraphQLObjectType = GraphQL.GraphQLObjectType;
 const GraphQLFloat = GraphQL.GraphQLFloat;
 const GraphQLID = GraphQL.GraphQLID;
-
 const Models = require('../../../models/index.js')
+const TemplateType = require('../../types/template.js')
 
-const TemplateListType = new GraphQLObjectType({
-  name: 'TemplateList',
-  fields() {
-    return {
-      id: {
-        type: GraphQLID
-      },
-      name: {
-        type: GraphQLString,
-        unique: true
-      },
-      moduleName: {
-        type: GraphQLString,
-      },
-      moduleVersion: {
-        type: GraphQLFloat,
-      },
-      description: {
-        type: GraphQLString,
-      },
-      dispositions: {
-        type: GraphQLString,
-      },
-      version: {
-        type: GraphQLFloat,
-      },
-      configuration: {
-        type: GraphQLString,
-      }
-    }
-  }
-})
+// const Models = require('../../../models/index.js')
+
+// const TemplateType = new GraphQLObjectType({
+//   name: 'TemplateList',
+//   fields() {
+//     return {
+//       id: {
+//         type: GraphQLID
+//       },
+//       name: {
+//         type: GraphQLString,
+//         unique: true
+//       },
+//       resultType: {
+//         type: GraphQLString,
+//         unique: true
+//       },
+//       moduleName: {
+//         type: GraphQLString,
+//       },
+//       moduleVersion: {
+//         type: GraphQLFloat,
+//       },
+//       description: {
+//         type: GraphQLString,
+//       },
+//       results: {
+//         type: GraphQLString,
+//       },
+//       version: {
+//         type: GraphQLFloat,
+//       },
+//       tasks: {
+//         type: new GraphQLList(TaskType)
+//       }
+//     }
+//   }
+// })
 
 module.exports = {
-  type: new GraphQLList(TemplateListType),
-  description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam fermentum sapien lacus, ut imperdiet orci elementum sed. Donec lobortis vel nunc sit amet luctus.',
+  type: new GraphQLList(TemplateType),
+  description: 'Returns a list of templates in the system..',
   args: {
     limit: {
       type: GraphQLInt,
@@ -73,6 +79,6 @@ module.exports = {
     delete args.search
 
     // Issue query and return the promise
-    return await Models.Template.findAll({ where: args, include: [], offset, limit })
+    return await Models.Template.findAll()
   }
 };

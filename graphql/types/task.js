@@ -8,53 +8,78 @@ module.exports = new GraphQLObjectType({
   name: "Task",
   fields() {
     return {
+      id: {
+        type: GraphQLID,
+        description: "Unique identifier of the task.",
+        resolve(task) {
+          return task.templateId;
+        }
+      },
       templateId: {
         type: GraphQLID,
-        description: "Unique identifier of the related task",
+        description: "Unique identifier of the related template.",
         resolve(task) {
-          return task.serviceId;
+          return task.templateId;
         }
       },
       taskGroupId: {
         type: GraphQLID,
-        description: "The access level of the task",
+        description: "Unique identifier of the related task group.",
         resolve(task) {
-          return task.access;
+          return task.taskGroupId;
         }
       },
-      eta: {
+      dueDate: {
         type: GraphQLString,
-        description: "The unique name for the task",
+        description: "The date the task is due.",
         resolve(task) {
-          return task.name;
+          return task.dueDate;
         }
       },
       status: {
         type: GraphQLString,
-        description: "A brief description of the task",
+        description: "The status of the task. valid values are new, ready, done.",
         resolve(task) {
-          return task.description;
+          return task.status;
         }
       },
-      disposition: {
+      result: {
         type: GraphQLString,
-        description: "The end result of the task.  Must be within the list of valid dispositions for singleSelect and multiSelect tasks.",
+        description: "The final output or disposition of the task.  Must be within the list of valid results from the template.",
         resolve(task) {
-          return task.description;
-        }
-      },
-      data: {
-        type: GraphQLString,
-        description: "A brief description of the task",
-        resolve(task) {
-          return task.description;
+          return task.result;
         }
       },
       dependencies: {
         type: GraphQLString,
-        description: "A brief description of the task",
+        description: "Task Dependencies",
         resolve(task) {
-          return task.description;
+          return task.dependencies;
+        }
+      },
+      name: {
+        type: GraphQLString,
+        decription: 'Template name.',
+        async resolve(task) {
+
+          let response = {}
+          await task.getTemplate().then((template) => {
+              response.template = template
+          }).catch((err) => {
+              let errors = err.errors.map(error => {
+                  return {
+                      code: error.path,
+                      message: error.message
+                  }
+              })
+              response.message = "There was an error creating the template"
+              response.errors = errors
+          })
+
+          // return response
+          console.log(response)
+          return response.template.name
+
         }
       }
     };

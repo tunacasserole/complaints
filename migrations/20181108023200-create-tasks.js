@@ -6,19 +6,19 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.UUID
       },
-      TemplateId: {
+      templateId: {
         type: Sequelize.UUID
       },
       taskGroupId: {
         type: Sequelize.UUID
       },
-      eta: {
-        type: Sequelize.TIME
+      dueDate: {
+        type: Sequelize.DATE
       },
       status: {
         type: Sequelize.STRING
       },
-      disposition: {
+      result: {
         type: Sequelize.STRING
       },
       data: {
@@ -33,8 +33,7 @@ module.exports = {
       createdAt: Sequelize.DATE,
       updatedBy: Sequelize.UUID,
       updatedAt: Sequelize.DATE,
-      deletedBy: Sequelize.UUID,
-      deletedAt: Sequelize.DATE,
+
     });
   },
   down: (queryInterface, Sequelize) => {

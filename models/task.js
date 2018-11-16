@@ -10,14 +10,14 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     templateId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       allowNull: false
     },
     taskGroupId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
     },
-    eta: {
-      type: DataTypes.TIME,
+    dueDate: {
+      type: DataTypes.DATE,
     },
     status: {
       type: DataTypes.STRING,
@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
         isIn: [['new', 'done']]
       }
     },
-    disposition: {
+    result: {
       type: DataTypes.STRING
     },
     data: {
@@ -37,60 +37,84 @@ module.exports = (sequelize, DataTypes) => {
     }
   });
 
-  // Task.belongsTo(Template)
 
+  //========== ASSOCIATIONS ==========//
   Task.associate = function (models) {
+
+    // Task belongs to a template
     models.Task.belongsTo(models.Template, {
-      foreignKey: "id",
-      sourceKey: "templateId"
+      foreignKey: "templateId",
+      sourceKey: "id"
     })
+
+    // Task belongs to a task group
+    models.Task.belongsTo(models.TaskGroup, {
+      foreignKey: "taskGroupId",
+      sourceKey: "id"
+    })
+
   }
 
-  // INSTANCE METHODS
-  Task.prototype.performTask = async function (userDisposition, configuration) {
-    // TODO: Check Dependencies
-    if (this.dependencies) { 
-      
-    }
 
-    // validate task has not already been completed
-    if (this.status === 'done') { return 'This task has already been performed.' }
+  //========== INSTANCE METHODS ==========//
 
-    // TODO: need to get this template from eagerly loaded association
-    var template = await sequelize.models.Template.findByPk(this.templateId)
+  //  Set task status back to new, blank out result and complete date  
+  Task.prototype.resetTask = async function () {
+    this.result = ""
+    this.status = 'new'
+    this.save()
+  }
 
-    // validate custom disposition for Data Capture Tasks: singleSelect, multiSelect
+  // 
+
+  
+  Task.prototype.validateResult = async function () {
+    console.log('----validateResultType----')
+  }
+
+
+  
+
+  Task.prototype.performTask = async function (userResult, configuration) {
+
+    
+    this.validateResult()
+    
+    var template = await this.getTemplate()
+
+    // validate custom result for Data Capture Tasks: singleSelect, multiSelect
     if (['boolean', 'yesNo', 'select', 'multiSelect'].includes(template.type)) {
       switch (template.type) {
-        case 'boolean': var dispositions = ['true', 'false'];
-        case 'yesNo': var dispositions = ['yes', 'no'];
-        case 'select': var dispositions = template.dispositions.split(',');
-        case 'multiSelect': var dispositions = template.dispositions.split(',');
-        // TODO: handle validating multiple dispositions for multiSelect
+        case 'boolean': var results = ['true', 'false'];
+        case 'yesNo': var results = ['yes', 'no'];
+        case 'select': var results = template.results.split(',');
+        case 'multiSelect': var results = template.results.split(',');
+        // TODO: handle validating multiple results for multiSelect
       }
 
-      if (!dispositions.includes(userDisposition)) {
-        return 'Invalid disposition for this template.  Valid dispositions are: ' + dispositions.toString()
+      if (!results.includes(userResult)) {
+        return 'Invalid result for this template.  Valid results are: ' + results.toString()
       }
     }
 
-    // validate disposition is a date field for date based data capture tasks
+    // validate result is a date field for date based data capture tasks
     if (template.type === 'date') {
-      if (!userDisposition instanceof Date) {
-        return 'Disposition must be a valid date'
+      if (!userResult instanceof Date) {
+        return 'result must be a valid date'
       }
     }
-    
-    // update disposition for task
-    this.disposition = userDisposition
-  
+
+    // update result for task
+    this.result = userResult
+
     // update status to done
     this.status = 'done'
     this.save()
 
     // Compute Tasks: execute corresponding code module
     if (template.type === 'compute') {
-      return await eval('computers.' + template.moduleName + '.perform(' + '{}' + ')')
+      await eval('computers.' + template.moduleName + '.perform(configuration)')
+      return 'Succesfully performed the task.'
     }
 
   }
