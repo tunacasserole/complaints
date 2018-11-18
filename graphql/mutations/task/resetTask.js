@@ -72,8 +72,6 @@ module.exports = {
             response.message = "There was an error reseting the task"
             response.errors = errors
 
-            // return response
-            console.log(response)
         })
 
         response.task = task

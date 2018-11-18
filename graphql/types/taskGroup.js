@@ -48,9 +48,6 @@ module.exports = new GraphQLObjectType({
             response.message = "There was an error creating the group"
             response.errors = errors
           })
-
-          // return response
-          console.log(response)
           return response.tasks
 
         }

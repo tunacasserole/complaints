@@ -1,4 +1,5 @@
-const computers = require('../lib/modules')
+// const computers = require('../lib/modules')
+const baseTaskModule = require('../lib/modules/baseTaskModule')
 
 'use strict';
 module.exports = (sequelize, DataTypes) => {
@@ -28,12 +29,6 @@ module.exports = (sequelize, DataTypes) => {
     },
     result: {
       type: DataTypes.STRING
-    },
-    data: {
-      type: DataTypes.JSON,
-    },
-    dependencies: {
-      type: DataTypes.JSON,
     }
   });
 
@@ -58,6 +53,16 @@ module.exports = (sequelize, DataTypes) => {
 
   //========== INSTANCE METHODS ==========//
 
+  //  Record result and set task status to done
+  Task.prototype.complete = async function (userResult) {
+    // update result for task
+    this.result = userResult
+
+    // update status to done
+    this.status = 'done'
+    this.save()
+  }
+
   //  Set task status back to new, blank out result and complete date  
   Task.prototype.resetTask = async function () {
     this.result = ""
@@ -65,23 +70,9 @@ module.exports = (sequelize, DataTypes) => {
     this.save()
   }
 
-  // 
 
-  
-  Task.prototype.validateResult = async function () {
-    console.log('----validateResultType----')
-  }
-
-
-  
-
-  Task.prototype.performTask = async function (userResult, configuration) {
-
-    
-    this.validateResult()
-    
-    var template = await this.getTemplate()
-
+  //  Validate the user supplied result of the task
+  Task.prototype.validateResult = async function (userResult, template) {
     // validate custom result for Data Capture Tasks: singleSelect, multiSelect
     if (['boolean', 'yesNo', 'select', 'multiSelect'].includes(template.type)) {
       switch (template.type) {
@@ -103,20 +94,21 @@ module.exports = (sequelize, DataTypes) => {
         return 'result must be a valid date'
       }
     }
+  }
 
-    // update result for task
-    this.result = userResult
 
-    // update status to done
-    this.status = 'done'
-    this.save()
+  Task.prototype.performTask = async function (userResult, configuration) {
+    var template = await this.getTemplate()
+
+    this.validateResult(userResult, template)
+
+    this.complete(userResult)
 
     // Compute Tasks: execute corresponding code module
-    if (template.type === 'compute') {
-      await eval('computers.' + template.moduleName + '.perform(configuration)')
-      return 'Succesfully performed the task.'
+    if (template.moduleName) {
+      return baseTaskModule().perform(template.moduleName, configuration)
+      return info
     }
-
   }
 
   return Task;

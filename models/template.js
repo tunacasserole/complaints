@@ -45,7 +45,6 @@ module.exports = (sequelize, DataTypes) => {
   }, {
       validate: {
         moduleNameRequiredForCompute() {
-          console.log(this.moduleName)
           if ((this.type === 'compute') && (this.moduleName == undefined)) {
             throw new Error('ModuleName is required for compute tasks.')
           }

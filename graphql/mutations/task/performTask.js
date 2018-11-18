@@ -1,7 +1,9 @@
+const GraphQLJSON = require("graphql-type-json");
 const GraphQL = require("graphql");
 const GraphQLInputObjectType = GraphQL.GraphQLInputObjectType;
 const GraphQLObjectType = GraphQL.GraphQLObjectType;
 const GraphQLString = GraphQL.GraphQLString;
+
 const GraphQLNonNull = GraphQL.GraphQLNonNull;
 
 const ErrorType = require('../../types/error')
@@ -20,7 +22,7 @@ const PerformTaskInput = new GraphQLInputObjectType({
                 type: GraphQLString
             },
             configuration: {
-                type: GraphQLString
+                type: GraphQLJSON
             }
         }
     }
@@ -35,17 +37,17 @@ const PerformTaskPayload = new GraphQLObjectType({
                 type: GraphQLString,
                 description: 'Any success or failure message associated with the execution of this mutation'
             },
-            // task: {
-            //     type: TaskType,
-            //     description: 'The task that was performed.'
-            // }
+            task: {
+                type: TaskType,
+                description: 'The task that was performed.'
+            }
         }
     }
 })
 
 module.exports = {
     type: PerformTaskPayload,
-    description: 'PerformTaskPayload ',
+    description: 'Perform Task',
     args: {
         input: {
             type: PerformTaskInput,
@@ -60,7 +62,7 @@ module.exports = {
 
         if (task === null) { response.message = "No task found for that ID" }
         else {
-            await task.performTask(args.input.result).then((task) => {
+              task.performTask(args.input.result, args.input.configuration).then((task) => {
                 response.task = task
             }).catch((err) => {
                 let errors = err.errors.map(error => {

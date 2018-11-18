@@ -67,9 +67,7 @@ module.exports = {
             response.message = "There was an error creating the task"
             response.errors = errors
 
-            // return response
-            console.log(response)
-        })
+            })
 
         return response
     }

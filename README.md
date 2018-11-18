@@ -90,10 +90,7 @@ mutation {
 ## Perform Task
 ```
 mutation {
-  performTask (input:{
-    taskId: "280f09f0-e9a5-11e8-b0d0-a36f25ef6629",
-  })
-  {
+  performTask(input: {taskId: "c3998870-ea5c-11e8-a042-495ec4597d71", configuration: "{\"tweeter\":\"trump\"}"}) {
     message
   }
 }

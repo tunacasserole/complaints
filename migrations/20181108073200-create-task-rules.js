@@ -1,28 +1,25 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Tasks', {
+    return queryInterface.createTable('TaskRules', {
       id: {
         primaryKey: true,
         type: Sequelize.UUID
       },
-      templateId: {
-        type: Sequelize.UUID
-      },
-      taskGroupId: {
-        type: Sequelize.UUID
-      },
-      status: {
+      name: {
         type: Sequelize.STRING
       },
-      result: {
+      type: {
         type: Sequelize.STRING
       },
-      dueDate: {
-        type: Sequelize.DATE
+      taskId: {
+        type: Sequelize.UUID
       },
-      completeDate: {
-        type: Sequelize.DATE
+      priorTaskId: {
+        type: Sequelize.UUID
+      },
+      priorResult: {
+        type: Sequelize.UUID
       },
 
       // Audit
@@ -34,6 +31,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Tasks');
+    return queryInterface.dropTable('TaskRules');
   }
 };
