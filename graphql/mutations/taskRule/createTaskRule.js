@@ -6,8 +6,8 @@ const GraphQLNonNull = GraphQL.GraphQLNonNull;
 
 const Models = require('../../../models/index.js');
 
-const CreateTaskRUleInput = new GraphQLInputObjectType({
-    name: "CreateTaskRUleInput",
+const CreateTaskRuleInput = new GraphQLInputObjectType({
+    name: "CreateTaskRuleInput",
     description: 'All that is needed to create a new task rule is a name.',
     fields() {
         return {
@@ -37,7 +37,7 @@ module.exports = {
     description: 'Create Task rule payload.',
     args: {
         input: {
-            type: CreateTaskRUleInput,
+            type: CreateTaskRuleInput,
             description: 'Create Task rule Input requires just rule name.',
         }
     },

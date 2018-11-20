@@ -28,8 +28,7 @@ module.exports = {
     var fs = require('fs');
     var files = fs.readdirSync('./lib/modules/');
 
-    files.pop()
-    files.shift()
+    files.shift() // remove baseTaskModule
     
     return files.map(x => x.slice(0,-3))
 

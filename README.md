@@ -63,7 +63,6 @@ mutation {
 ```
 
 ## Create Task
-
 ```
 mutation {
   createTask (input:{

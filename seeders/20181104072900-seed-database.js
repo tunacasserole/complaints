@@ -1,7 +1,7 @@
 'use strict';
 
 const Models = require('../models')
-
+console.log('------------ START - seeding database -----------')
 module.exports = {
 
   up: async (queryInterface, Sequelize) => {
@@ -94,7 +94,7 @@ module.exports = {
     })
 
     let t11 = await Models.Template.create({
-      name: 'Get a tweet from the president.',
+      name: 'Get a tweet from someone.',
       resultType: 'compute',
       moduleName: 'getTweet'
     })
@@ -102,6 +102,8 @@ module.exports = {
       templateId: t11.id,
       taskGroupId: tg.id
     })
+
+    console.log('------------ END - seeding database -----------')
 
   },
   down: function (queryInterface, Sequelize) {

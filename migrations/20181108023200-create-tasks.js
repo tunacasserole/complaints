@@ -34,6 +34,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Tasks');
+    return Sequelize.dropTable('Tasks');
   }
 };

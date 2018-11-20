@@ -1,7 +1,6 @@
 const GraphQL = require("graphql");
 const GraphQLObjectType = GraphQL.GraphQLObjectType;
 const GraphQLString = GraphQL.GraphQLString;
-const GraphQLUUID = GraphQL.GraphQLUUID;
 const GraphQLID = GraphQL.GraphQLID;
 
 module.exports = new GraphQLObjectType({
@@ -12,7 +11,7 @@ module.exports = new GraphQLObjectType({
         type: GraphQLID,
         description: "Unique identifier of the task.",
         resolve(task) {
-          return task.templateId;
+          return task.id;
         }
       },
       templateId: {
@@ -30,6 +29,13 @@ module.exports = new GraphQLObjectType({
         }
       },
       dueDate: {
+        type: GraphQLString,
+        description: "The date the task is due.",
+        resolve(task) {
+          return task.dueDate;
+        }
+      },
+      completeDate: {
         type: GraphQLString,
         description: "The date the task is due.",
         resolve(task) {
@@ -57,7 +63,7 @@ module.exports = new GraphQLObjectType({
           return task.dependencies;
         }
       },
-      name: {
+      templateName: {
         type: GraphQLString,
         decription: 'Template name.',
         async resolve(task) {
@@ -74,11 +80,36 @@ module.exports = new GraphQLObjectType({
               })
               response.message = "There was an error creating the template"
               response.errors = errors
+              // console.log(response)
           })
 
           // return response
-          console.log(response)
           return response.template.name
+
+        }
+      },
+      groupName: {
+        type: GraphQLString,
+        decription: 'Task group name.',
+        async resolve(task) {
+
+          let response = {}
+          await task.getTaskGroup().then((group) => {
+              response.group = group
+          }).catch((err) => {
+              let errors = err.errors.map(error => {
+                  return {
+                      code: error.path,
+                      message: error.message
+                  }
+              })
+              response.message = "There was an error creating the group"
+              response.errors = errors
+              // console.log(response)
+          })
+
+          // return response
+          return response.group.name
 
         }
       }

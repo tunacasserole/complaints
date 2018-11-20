@@ -2,50 +2,8 @@ const GraphQL = require('graphql')
 const GraphQLList = GraphQL.GraphQLList
 const GraphQLString = GraphQL.GraphQLString
 const GraphQLInt = GraphQL.GraphQLInt
-const GraphQLObjectType = GraphQL.GraphQLObjectType;
-const GraphQLFloat = GraphQL.GraphQLFloat;
-const GraphQLID = GraphQL.GraphQLID;
 const Models = require('../../../models/index.js')
 const TemplateType = require('../../types/template.js')
-
-// const Models = require('../../../models/index.js')
-
-// const TemplateType = new GraphQLObjectType({
-//   name: 'TemplateList',
-//   fields() {
-//     return {
-//       id: {
-//         type: GraphQLID
-//       },
-//       name: {
-//         type: GraphQLString,
-//         unique: true
-//       },
-//       resultType: {
-//         type: GraphQLString,
-//         unique: true
-//       },
-//       moduleName: {
-//         type: GraphQLString,
-//       },
-//       moduleVersion: {
-//         type: GraphQLFloat,
-//       },
-//       description: {
-//         type: GraphQLString,
-//       },
-//       results: {
-//         type: GraphQLString,
-//       },
-//       version: {
-//         type: GraphQLFloat,
-//       },
-//       tasks: {
-//         type: new GraphQLList(TaskType)
-//       }
-//     }
-//   }
-// })
 
 module.exports = {
   type: new GraphQLList(TemplateType),

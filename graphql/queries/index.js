@@ -7,8 +7,12 @@ const listTemplates = require('./template/listTemplates')
 const readTemplate = require('./template/readTemplate')
 
 // Groups
-const listTaskGroups = require('./TaskGroup/ListTaskGroups')
-const readTaskGroup = require('./TaskGroup/readTaskGroup')
+const listTaskGroups = require('./taskGroup/ListTaskGroups')
+const readTaskGroup = require('./taskGroup/readTaskGroup')
+
+// Rules
+const listTaskRules = require('./taskRule/ListTaskRules')
+const readTaskRule = require('./taskRule/readTaskRule')
 
 // Modules
 const listModules = require('./module/ListModules')
@@ -28,6 +32,10 @@ module.exports = {
   // Groups
   listTaskGroups,
   readTaskGroup,
+ 
+  // Rules
+  listTaskRules,
+  readTaskRule,
 
   // Modules
   listModules,

@@ -33,7 +33,7 @@ module.exports = new GraphQLObjectType({
         }
       },
       moduleName: {
-        type: GraphQLInt,
+        type: GraphQLString,
         description: "Name of the module that will contain the logic for performing this task",
         resolve(template) {
           return template.moduleName;
@@ -43,7 +43,7 @@ module.exports = new GraphQLObjectType({
         }
       },
       moduleVersion: {
-        type: GraphQLString,
+        type: GraphQLInt,
         description: "Version of the task processing module to use when performing this task",
         resolve(template) {
           return template.moduleVersion;

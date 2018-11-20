@@ -59,11 +59,11 @@ module.exports = {
         let response = { message: "Succesfully performed the task." }
 
         var task = await Models.Task.findByPk(args.input.taskId)
-
-        if (task === null) { response.message = "No task found for that ID" }
+        
+        if (task === null) { response.message = "No task found for that task ID" }
         else {
+              response.task = task
               task.performTask(args.input.result, args.input.configuration).then((task) => {
-                response.task = task
             }).catch((err) => {
                 let errors = err.errors.map(error => {
                     return {

@@ -8,17 +8,17 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     taskId: {
-      type: Sequelize.UUID
+      type: DataTypes.UUID
     },
     name: {
       type: DataTypes.STRING,
       unique: true,
     },
     result: {
-      type: Sequelize.STRING
+      type: DataTypes.STRING
     },
     operator: {
-      type: Sequelize.STRING
+      type: DataTypes.STRING
     }
   });
 

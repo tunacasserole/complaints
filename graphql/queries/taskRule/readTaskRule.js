@@ -3,7 +3,7 @@ const GraphQLNonNull = GraphQL.GraphQLNonNull
 const GraphQLString = GraphQL.GraphQLString
 
 const Models = require('../../../models/index.js')
-const TaskRuleType = require('../../types/taskRUle.js')
+const TaskRuleType = require('../../types/taskRule.js')
 
 module.exports = {
   type: TaskRuleType,

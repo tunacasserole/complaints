@@ -20,6 +20,9 @@ module.exports = (sequelize, DataTypes) => {
     dueDate: {
       type: DataTypes.DATE,
     },
+    completeDate: {
+      type: DataTypes.DATE,
+    },
     status: {
       type: DataTypes.STRING,
       defaultValue: 'new',
@@ -48,6 +51,12 @@ module.exports = (sequelize, DataTypes) => {
       sourceKey: "id"
     })
 
+    // Task has many task rules
+    models.Task.hasMany(models.TaskRule, {
+      foreignKey: "taskRuleId",
+      sourceKey: "id"
+    })
+
   }
 
 
@@ -55,6 +64,7 @@ module.exports = (sequelize, DataTypes) => {
 
   //  Record result and set task status to done
   Task.prototype.complete = async function (userResult) {
+    console.log('----completing-----')
     // update result for task
     this.result = userResult
 
@@ -73,6 +83,7 @@ module.exports = (sequelize, DataTypes) => {
 
   //  Validate the user supplied result of the task
   Task.prototype.validateResult = async function (userResult, template) {
+    console.log('------- validating result --------')
     // validate custom result for Data Capture Tasks: singleSelect, multiSelect
     if (['boolean', 'yesNo', 'select', 'multiSelect'].includes(template.type)) {
       switch (template.type) {
@@ -94,13 +105,15 @@ module.exports = (sequelize, DataTypes) => {
         return 'result must be a valid date'
       }
     }
+    return 'success'
   }
 
 
   Task.prototype.performTask = async function (userResult, configuration) {
     var template = await this.getTemplate()
 
-    this.validateResult(userResult, template)
+    var message = this.validateResult(userResult, template)
+    if (message !== 'success') { return 'Invalid result for this task.'}
 
     this.complete(userResult)
 

@@ -2,15 +2,12 @@ const GraphQL = require('graphql')
 const GraphQLList = GraphQL.GraphQLList
 const GraphQLString = GraphQL.GraphQLString
 const GraphQLInt = GraphQL.GraphQLInt
-const GraphQLObjectType = GraphQL.GraphQLObjectType;
-const GraphQLID = GraphQL.GraphQLID;
-const GraphQLFloat = GraphQL.GraphQLFloat;
 
 const Models = require('../../../models/index.js')
-const TaskRule = require('../../types/tnaskRule.js')
+const TaskRuleType = require('../../types/taskRule.js')
 
 module.exports = {
-  type: new GraphQLList(TaskRule),
+  type: new GraphQLList(TaskRuleType),
   description: 'Returns a list of all task groups in the system..',
   args: {
     limit: {
