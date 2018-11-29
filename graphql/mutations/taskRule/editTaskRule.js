@@ -3,26 +3,25 @@ const GraphQLInputObjectType = GraphQL.GraphQLInputObjectType;
 const GraphQLObjectType = GraphQL.GraphQLObjectType;
 const GraphQLString = GraphQL.GraphQLString;
 const GraphQLList = GraphQL.GraphQLList;
-const GraphQLNonNull = GraphQL.GraphQLNonNull;
 
 const ErrorType = require('../../types/error')
 const TaskType = require('../../types/task')
 const Models = require('../../../models/index.js')
 
-const CreateTaskInput = new GraphQLInputObjectType({
-    name: "CreateTaskInput",
+const EditTaskRuleInput = new GraphQLInputObjectType({
+    name: "EditTaskRuleInput",
     description: 'The primary required input to create a new task is the id of the template you wish to use.',
     fields() {
         return {
-            stepId: {
-                type: new GraphQLNonNull(GraphQLString)
+            dueDate: {
+                type: GraphQLString
             }
         }
     }
 })
 
-const CreateTaskPayload = new GraphQLObjectType({
-    name: "CreateTaskPayload",
+const EditTaskRulePayload = new GraphQLObjectType({
+    name: "EditTaskRulePayload",
     description: 'The payload to be returned includes any errors, messages and the task itself.',
     fields() {
         return {
@@ -43,12 +42,12 @@ const CreateTaskPayload = new GraphQLObjectType({
 })
 
 module.exports = {
-    type: CreateTaskPayload,
-    description: 'CreateTaskPayload',
+    type: EditTaskRulePayload,
+    description: 'EditTaskRulePayload',
     args: {
         input: {
-            type: CreateTaskInput,
-            description: 'CreateTaskInput ',
+            type: EditTaskRuleInput,
+            description: 'EditTaskRuleInput ',
         }
     },
 

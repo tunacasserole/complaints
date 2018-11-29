@@ -1,10 +1,23 @@
 const createTask = require('./task/createTask')
 const editTask = require('./task/editTask')
-const createTaskRule = require('./taskRule/createTaskRule')
-const createTaskGroup = require('./taskGroup/createTaskGroup')
-const createTemplate = require('./template/createTemplate')
 const performTask = require('./task/performTask')
 const resetTask = require('./task/resetTask')
+
+const createTaskRule = require('./taskRule/createTaskRule')
+const editTaskRule = require('./taskRule/editTaskRule')
+const createProject = require('./project/createProject')
+const createProjectTask = require('./projectTask/createProjectTask')
+const editProject = require('./project/editProject')
+const editProjectTask = require('./projectTask/editProjectTask')
+const createPlan = require('./plan/createPlan')
+const editPlan = require('./plan/editPlan')
+const createPlanStep = require('./planStep/createPlanStep')
+const editPlanStep = require('./planStep/editPlanStep')
+const createStep = require('./step/createStep')
+const editStep = require('./step/editStep')
+const createStepRule = require('./stepRule/createStepRule')
+const editStepRule = require('./stepRule/editStepRule')
+
 
 module.exports = {
 
@@ -13,8 +26,25 @@ module.exports = {
     performTask,
     resetTask,
     
-    createTemplate, 
+    createStep, 
+    editStep, 
+
+    createStepRule, 
+    editStepRule, 
+
+    createPlan,
+    editPlan,
+
+    createPlanStep,
+    editPlanStep,
+
+    createProject,
+    editProject,
+
     createTaskRule,
-    createTaskGroup,
+    editTaskRule,
+    
+    createProjectTask,
+    editProjectTask
 
 };

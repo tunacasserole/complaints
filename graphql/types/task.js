@@ -14,18 +14,18 @@ module.exports = new GraphQLObjectType({
           return task.id;
         }
       },
-      templateId: {
+      stepId: {
         type: GraphQLID,
         description: "Unique identifier of the related template.",
         resolve(task) {
-          return task.templateId;
+          return task.stepId;
         }
       },
-      taskGroupId: {
+      projectId: {
         type: GraphQLID,
-        description: "Unique identifier of the related task group.",
+        description: "Unique identifier of the related project.",
         resolve(task) {
-          return task.taskGroupId;
+          return task.projectId;
         }
       },
       dueDate: {
@@ -63,56 +63,56 @@ module.exports = new GraphQLObjectType({
           return task.dependencies;
         }
       },
-      templateName: {
-        type: GraphQLString,
-        decription: 'Template name.',
-        async resolve(task) {
+      // templateName: {
+      //   type: GraphQLString,
+      //   decription: 'Template name.',
+      //   async resolve(task) {
 
-          let response = {}
-          await task.getTemplate().then((template) => {
-              response.template = template
-          }).catch((err) => {
-              let errors = err.errors.map(error => {
-                  return {
-                      code: error.path,
-                      message: error.message
-                  }
-              })
-              response.message = "There was an error creating the template"
-              response.errors = errors
-              // console.log(response)
-          })
+      //     let response = {}
+      //     await task.getTemplate().then((template) => {
+      //         response.template = template
+      //     }).catch((err) => {
+      //         let errors = err.errors.map(error => {
+      //             return {
+      //                 code: error.path,
+      //                 message: error.message
+      //             }
+      //         })
+      //         response.message = "There was an error creating the template"
+      //         response.errors = errors
+      //         // console.log(response)
+      //     })
 
-          // return response
-          return response.template.name
+      //     // return response
+      //     return response.template.name
 
-        }
-      },
-      groupName: {
-        type: GraphQLString,
-        decription: 'Task group name.',
-        async resolve(task) {
+      //   }
+      // },
+      // groupName: {
+      //   type: GraphQLString,
+      //   decription: 'Task group name.',
+      //   async resolve(task) {
 
-          let response = {}
-          await task.getTaskGroup().then((group) => {
-              response.group = group
-          }).catch((err) => {
-              let errors = err.errors.map(error => {
-                  return {
-                      code: error.path,
-                      message: error.message
-                  }
-              })
-              response.message = "There was an error creating the group"
-              response.errors = errors
-              // console.log(response)
-          })
+      //     let response = {}
+      //     await task.getTaskGroup().then((group) => {
+      //         response.group = group
+      //     }).catch((err) => {
+      //         let errors = err.errors.map(error => {
+      //             return {
+      //                 code: error.path,
+      //                 message: error.message
+      //             }
+      //         })
+      //         response.message = "There was an error creating the group"
+      //         response.errors = errors
+      //         // console.log(response)
+      //     })
 
-          // return response
-          return response.group.name
+      //     // return response
+      //     return response.group.name
 
-        }
-      }
+      //   }
+      // }
     };
   }
 });

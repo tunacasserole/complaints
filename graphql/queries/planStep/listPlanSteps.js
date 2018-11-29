@@ -3,51 +3,15 @@ const GraphQLList = GraphQL.GraphQLList
 const GraphQLString = GraphQL.GraphQLString
 const GraphQLInt = GraphQL.GraphQLInt
 const GraphQLObjectType = GraphQL.GraphQLObjectType;
-const GraphQLId = GraphQL.GraphQLID;
+const GraphQLID = GraphQL.GraphQLID;
+const GraphQLFloat = GraphQL.GraphQLFloat;
 
 const Models = require('../../../models/index.js')
-const TaskType = require('../../types/task.js')
-
-// const TaskListType = new GraphQLObjectType({
-//   name: 'TaskList',
-//   fields() {
-//     return {
-//       id: {
-//         type: GraphQLId,
-//       },
-//       templateId: {
-//         type: GraphQLId,
-//       },
-//       status: {
-//         type: GraphQLString,
-//       },
-//       data: {
-//         type: GraphQLString,
-//       },
-//       dependencies: {
-//         type: GraphQLString,
-//       },
-//       dueDate: {
-//         type: GraphQLString,
-//       },
-//       result: {
-//         type: GraphQLString
-//       },
-//       templateName: {
-//         type: GraphQLString,
-//         resolve(task) {
-//           task.getTemplate().then((thing) => {
-//           // return thing.name
-//           })
-//         }
-//       }
-//     }
-//   }
-// })
+const planStep = require('../../types/planStep.js')
 
 module.exports = {
-  type: new GraphQLList(TaskType),
-  description: 'Returns a list of all tasks in the system..',
+  type: new GraphQLList(planStep),
+  description: 'Returns a list of all task groups in the system..',
   args: {
     limit: {
       type: GraphQLInt,
@@ -77,7 +41,6 @@ module.exports = {
     delete args.search
 
     // Issue query and return the promise
-    // return await Models.Task.findAll({ where: args, include: [{ model: Models.Template, required: true }], offset, limit })
-    return await Models.Task.findAll({ where: args })
+    return await Models.planStep.findAll({ where: args, include: [], offset, limit })
   }
 };

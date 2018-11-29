@@ -1,38 +1,35 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const TaskRule = sequelize.define('TaskRule', {
+  const StepRule = sequelize.define('StepRule', {
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV1,
       primaryKey: true,
       allowNull: false
     },
-    taskId: {
-      type: DataTypes.UUID
-    },
-    priorTaskId: {
+    StepId: {
       type: DataTypes.UUID
     },
     name: {
       type: DataTypes.STRING,
       unique: true,
     },
-    result: {
-      type: DataTypes.STRING
+    priorStepId: {
+      type: DataTypes.UUID
     },
     operator: {
       type: DataTypes.STRING
     }
   });
 
-  TaskRule.associate = function (models) {
+  // StepRule.associate = function (models) {
 
-    // TaskRule has many tasks
-    models.TaskRule.belongsTo(models.Task, {
-      foreignKey: "taskId",
-      sourceKey: "id"
-    })
-  }
+  //   // StepRule belongs to Template
+  //   models.StepRule.belongsTo(models.Step, {
+  //     foreignKey: "StepId",
+  //     sourceKey: "id"
+  //   })
+  // }
 
-  return TaskRule;
+  return StepRule;
 };

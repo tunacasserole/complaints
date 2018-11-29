@@ -3,56 +3,52 @@ const baseTaskModule = require('../lib/modules/baseTaskModule')
 
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const Task = sequelize.define('Task', {
+  const Step = sequelize.define('Step', {
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV1,
       primaryKey: true,
       allowNull: false
     },
-    stepId: {
-      type: DataTypes.UUID,
+    name: {
+      type: DataTypes.STRING,
       allowNull: false
     },
-    startDate: {
-      type: DataTypes.DATE,
+    description: {
+      type: DataTypes.TEXT,
     },
-    dueDate: {
-      type: DataTypes.DATE,
+    parentID: {
+      type: DataTypes.UUID,
     },
-    completeDate: {
-      type: DataTypes.DATE,
-    },
-    state: {
+    resultType: {
       type: DataTypes.STRING,
-      defaultValue: 'blocked',
-      validate: {
-        isIn: [['blocked', 'ready', 'complete']]
-      }
     },
-    result: {
+    module: {
+      type: DataTypes.STRING,
+    },
+    resultList: {
       type: DataTypes.STRING
     },
-    answeredBy: {
-      type: DataTypes.UUID
+    duration: {
+      type: DataTypes.INTEGER
     }
   });
 
 
   //========== ASSOCIATIONS ==========//
-  Task.associate = function (models) {
+  Step.associate = function (models) {
 
-    // Task belongs to a template
-    models.Task.belongsTo(models.ProjectTask, {
-      foreignKey: "taskId",
+    // Step belongs to a task group
+    models.Step.belongsTo(models.PlanStep, {
+      foreignKey: "stepId",
       sourceKey: "id"
     })
 
-    // Task has many task rules
-    models.Task.hasMany(models.TaskRule, {
-      foreignKey: "taskId",
-      sourceKey: "id"
-    })
+    // Step has many task rules
+    // models.Step.hasMany(models.StepRule, {
+    //   foreignKey: "stepId",
+    //   sourceKey: "id"
+    // })
 
   }
 
@@ -60,7 +56,7 @@ module.exports = (sequelize, DataTypes) => {
   //========== INSTANCE METHODS ==========//
 
   //  Record result and set task status to done
-  Task.prototype.complete = async function (userResult) {
+  Step.prototype.complete = async function (userResult) {
     console.log('----completing-----')
     // update result for task
     this.result = userResult
@@ -71,7 +67,7 @@ module.exports = (sequelize, DataTypes) => {
   }
 
   //  Set task status back to new, blank out result and complete date  
-  Task.prototype.resetTask = async function () {
+  Step.prototype.resetStep = async function () {
     this.result = ""
     this.status = 'new'
     this.save()
@@ -79,9 +75,9 @@ module.exports = (sequelize, DataTypes) => {
 
 
   //  Validate the user supplied result of the task
-  Task.prototype.validateResult = async function (userResult, template) {
+  Step.prototype.validateResult = async function (userResult, template) {
     console.log('------- validating result --------')
-    // validate custom result for Data Capture Tasks: singleSelect, multiSelect
+    // validate custom result for Data Capture Steps: singleSelect, multiSelect
     if (['boolean', 'yesNo', 'select', 'multiSelect'].includes(template.type)) {
       switch (template.type) {
         case 'boolean': var results = ['true', 'false'];
@@ -106,7 +102,7 @@ module.exports = (sequelize, DataTypes) => {
   }
 
 
-  Task.prototype.performTask = async function (userResult, configuration) {
+  Step.prototype.performStep = async function (userResult, configuration) {
     var template = await this.getTemplate()
 
     var message = this.validateResult(userResult, template)
@@ -114,12 +110,12 @@ module.exports = (sequelize, DataTypes) => {
 
     this.complete(userResult)
 
-    // Compute Tasks: execute corresponding code module
+    // Compute Steps: execute corresponding code module
     if (template.moduleName) {
-      return baseTaskModule().perform(template.moduleName, configuration)
+      return baseStepModule().perform(template.moduleName, configuration)
       return info
     }
   }
 
-  return Task;
+  return Step;
 };
