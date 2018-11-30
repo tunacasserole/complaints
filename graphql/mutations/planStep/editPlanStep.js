@@ -2,44 +2,30 @@ const GraphQL = require("graphql");
 const GraphQLInputObjectType = GraphQL.GraphQLInputObjectType;
 const GraphQLObjectType = GraphQL.GraphQLObjectType;
 const GraphQLString = GraphQL.GraphQLString;
-const GraphQLFloat = GraphQL.GraphQLFloat;
+const GraphQLInt = GraphQL.GraphQLInt;
 const GraphQLList = GraphQL.GraphQLList;
 const GraphQLNonNull = GraphQL.GraphQLNonNull;
 
 const ErrorType = require('../../types/error')
-const TemplateType = require('../../types/step')
+const PlanStepType = require('../../types/step')
 const Models = require('../../../models/index.js')
 
 const EditPlanStepInput = new GraphQLInputObjectType({
     name: "EditPlanStepInput",
-    description: 'Create a new task template',
+    description: 'All that is needed to create a new plan step is a name.',
     fields() {
         return {
-            name: {
-                type: new GraphQLNonNull(GraphQLString)
+            planId: {
+                type: new GraphQLNonNull(GraphQLString),
             },
-            type: {
-                type: new GraphQLNonNull(GraphQLString)
+            stepId: {
+                type: new GraphQLNonNull(GraphQLString),
             },
-            moduleName: {
-                type: GraphQLString,
-                description: 'Must be one of the following: boolean, compute, date, free, select, multiple'
+            sequence: {
+                type: GraphQLInt,
             },
-            moduleVersion: {
-                type: GraphQLFloat
-            },
-            description: {
-                type: GraphQLString
-            },
-            results: {
-                type: GraphQLString
-            },
-            version: {
-                type: GraphQLFloat
-            },
-            configuration: {
-                type: GraphQLString,
-                description: 'A configuration object describing the task.'
+            offset: {
+                type: GraphQLInt,
             }
         }
     }
@@ -47,7 +33,7 @@ const EditPlanStepInput = new GraphQLInputObjectType({
 
 const EditPlanStepPayload = new GraphQLObjectType({
     name: "EditPlanStepPayload",
-    description: 'The attributes of a Template available for creation.',
+    description: 'The attributes of a Plan Step available for creation.',
     fields() {
         return {
             message: {
@@ -58,9 +44,9 @@ const EditPlanStepPayload = new GraphQLObjectType({
                 type: new GraphQLList(ErrorType),
                 description: 'The error codes and descriptions for any unsuccesful request'
             },
-            template: {
-                type: TemplateType,
-                description: 'The template that was created.'
+            planStep: {
+                type: PlanStepType,
+                description: 'The planStep that was created.'
             }
         }
     }
@@ -78,8 +64,8 @@ module.exports = {
 
     resolve: async (root, args) => {
         let response = {}
-        await Models.Template.create(args.input).then((template) => {
-            response.template = template
+        await Models.PlanStep.create(args.input).then((planStep) => {
+            response.planStep = planStep
         }).catch((err) => {
             let errors = err.errors.map(error => {
                 return {
@@ -87,7 +73,7 @@ module.exports = {
                     message: error.message
                 }
             })
-            response.message = "There was an error creating the template"
+            response.message = "There was an error editing the plan step"
             response.errors = errors
         })
 

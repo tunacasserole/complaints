@@ -2,7 +2,7 @@ require('dotenv').config();
 
 module.exports = {
     "username": "root",
-    "database": "tasker_development",
+    "database": "task_development",
     "host": "localhost",
     "dialect": "mysql",
 }

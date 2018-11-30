@@ -11,7 +11,7 @@ const planStep = require('../../types/planStep.js')
 
 module.exports = {
   type: new GraphQLList(planStep),
-  description: 'Returns a list of all task groups in the system..',
+  description: 'Returns a list of all plan steps in the system..',
   args: {
     limit: {
       type: GraphQLInt,
@@ -41,6 +41,7 @@ module.exports = {
     delete args.search
 
     // Issue query and return the promise
-    return await Models.planStep.findAll({ where: args, include: [], offset, limit })
+    // return await Models.PlanStep.findAll({ where: args })
+    // return await Models.PlanStep.findAll({ where: args, include: [], offset, limit })
   }
 };

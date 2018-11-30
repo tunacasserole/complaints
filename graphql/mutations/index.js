@@ -6,8 +6,8 @@ const resetTask = require('./task/resetTask')
 const createTaskRule = require('./taskRule/createTaskRule')
 const editTaskRule = require('./taskRule/editTaskRule')
 const createProject = require('./project/createProject')
-const createProjectTask = require('./projectTask/createProjectTask')
 const editProject = require('./project/editProject')
+const createProjectTask = require('./projectTask/createProjectTask')
 const editProjectTask = require('./projectTask/editProjectTask')
 const createPlan = require('./plan/createPlan')
 const editPlan = require('./plan/editPlan')
@@ -25,12 +25,12 @@ module.exports = {
     editTask,
     performTask,
     resetTask,
-    
-    createStep, 
-    editStep, 
 
-    createStepRule, 
-    editStepRule, 
+    createStep,
+    editStep,
+
+    createStepRule,
+    editStepRule,
 
     createPlan,
     editPlan,
@@ -43,7 +43,7 @@ module.exports = {
 
     createTaskRule,
     editTaskRule,
-    
+
     createProjectTask,
     editProjectTask
 

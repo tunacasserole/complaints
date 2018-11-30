@@ -2,22 +2,41 @@ const GraphQL = require("graphql");
 const GraphQLInputObjectType = GraphQL.GraphQLInputObjectType;
 const GraphQLObjectType = GraphQL.GraphQLObjectType;
 const GraphQLString = GraphQL.GraphQLString;
+const GraphQLID = GraphQL.GraphQLID;
+const GraphQLInt = GraphQL.GraphQLInt;
+const GraphQLList = GraphQL.GraphQLList;
 const GraphQLNonNull = GraphQL.GraphQLNonNull;
 
 const Models = require('../../../models/index.js');
 
 const CreateStepRuleInput = new GraphQLInputObjectType({
     name: "CreateStepRuleInput",
-    description: 'All that is needed to create a new task rule is a name.',
+    description: 'Create a new step rule.',
     fields() {
         return {
             name: {
-                type: new GraphQLNonNull(GraphQLString),
-                description: 'Name of the new task rule you wish to create.'
-            }
+                type: new GraphQLNonNull(GraphQLString)
+            },
+            stepId: {
+                type: new GraphQLNonNull(GraphQLID)
+            },
+            priorId: {
+                type: GraphQLID,
+            },
+            priorResult: {
+                type: GraphQLString,
+            },
+            operator: {
+                type: GraphQLString,
+            },
+            sequence: {
+                type: GraphQLInt,
+            },
         }
     }
 })
+
+
 
 const CreateStepGroupPayload = new GraphQLObjectType({
     name: 'CreateStepRulePayload',
@@ -34,18 +53,18 @@ const CreateStepGroupPayload = new GraphQLObjectType({
 
 module.exports = {
     type: CreateStepGroupPayload,
-    description: 'Create Task rule payload.',
+    description: 'Create Step rule payload.',
     args: {
         input: {
             type: CreateStepRuleInput,
-            description: 'Create Task rule Input requires just rule name.',
+            description: 'Create Step rule Input requires just rule name.',
         }
     },
 
     resolve: async (root, args) => {
         let response = {}
-        await Models.TaskRule.create(args.input).then((taskRule) => {
-            response.taskRule = taskRule
+        await Models.StepRule.create(args.input).then((stepRule) => {
+            response.stepRule = stepRule
         }).catch((err) => {
             let errors = err.errors.map(error => {
                 return {
@@ -53,7 +72,7 @@ module.exports = {
                     message: error.message
                 }
             })
-            response.message = "There was an error creating the taskRule"
+            response.message = "There was an error creating the stepRule"
             response.errors = errors
         })
 

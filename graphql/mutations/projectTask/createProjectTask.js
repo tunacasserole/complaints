@@ -2,44 +2,32 @@ const GraphQL = require("graphql");
 const GraphQLInputObjectType = GraphQL.GraphQLInputObjectType;
 const GraphQLObjectType = GraphQL.GraphQLObjectType;
 const GraphQLString = GraphQL.GraphQLString;
-const GraphQLFloat = GraphQL.GraphQLFloat;
+const GraphQLID = GraphQL.GraphQLID;
+const GraphQLInt = GraphQL.GraphQLInt;
 const GraphQLList = GraphQL.GraphQLList;
 const GraphQLNonNull = GraphQL.GraphQLNonNull;
 
+const ProjectTaskType = require('../../types/projectTask')
+
 const ErrorType = require('../../types/error')
-const TemplateType = require('../../types/step')
 const Models = require('../../../models/index.js')
 
 const CreateProjectTaskInput = new GraphQLInputObjectType({
     name: "CreateProjectTaskInput",
-    description: 'Create a new task template',
+    description: 'Create a new task projectTask',
     fields() {
         return {
             name: {
                 type: new GraphQLNonNull(GraphQLString)
             },
-            type: {
+            projectId: {
                 type: new GraphQLNonNull(GraphQLString)
             },
-            moduleName: {
-                type: GraphQLString,
-                description: 'Must be one of the following: boolean, compute, date, free, select, multiple'
+            taskId: {
+                type: GraphQLID,
             },
-            moduleVersion: {
-                type: GraphQLFloat
-            },
-            description: {
-                type: GraphQLString
-            },
-            results: {
-                type: GraphQLString
-            },
-            version: {
-                type: GraphQLFloat
-            },
-            configuration: {
-                type: GraphQLString,
-                description: 'A configuration object describing the task.'
+            sequence: {
+                type: GraphQLInt,
             }
         }
     }
@@ -47,7 +35,7 @@ const CreateProjectTaskInput = new GraphQLInputObjectType({
 
 const CreateProjectTaskPayload = new GraphQLObjectType({
     name: "CreateProjectTaskPayload",
-    description: 'The attributes of a Template available for creation.',
+    description: 'The attributes of a ProjectTask available for creation.',
     fields() {
         return {
             message: {
@@ -58,9 +46,9 @@ const CreateProjectTaskPayload = new GraphQLObjectType({
                 type: new GraphQLList(ErrorType),
                 description: 'The error codes and descriptions for any unsuccesful request'
             },
-            template: {
-                type: TemplateType,
-                description: 'The template that was created.'
+            projectTask: {
+                type: ProjectTaskType,
+                description: 'The projectTask that was created.'
             }
         }
     }
@@ -78,8 +66,8 @@ module.exports = {
 
     resolve: async (root, args) => {
         let response = {}
-        await Models.Template.create(args.input).then((template) => {
-            response.template = template
+        await Models.ProjectTask.create(args.input).then((projectTask) => {
+            response.projectTask = projectTask
         }).catch((err) => {
             let errors = err.errors.map(error => {
                 return {
@@ -87,7 +75,7 @@ module.exports = {
                     message: error.message
                 }
             })
-            response.message = "There was an error creating the template"
+            response.message = "There was an error creating the projectTask"
             response.errors = errors
         })
 

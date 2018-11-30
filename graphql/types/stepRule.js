@@ -3,7 +3,7 @@ const GraphQLObjectType = GraphQL.GraphQLObjectType;
 const GraphQLString = GraphQL.GraphQLString;
 const GraphQLID = GraphQL.GraphQLID;
 
-const TaskType = require('./task')
+const TaskType = require('./stepRule')
 const Models = require('../../models/index.js')
 
 module.exports = new GraphQLObjectType({
@@ -19,25 +19,25 @@ module.exports = new GraphQLObjectType({
       },
       stepId: {
         type: GraphQLID,
-        description: "Unique identifier of the task that the rule belongs to",
+        description: "Unique identifier of the stepRule that the rule belongs to",
         resolve(stepRule) {
           return stepRule.stepId;
         }
       },
       priorStepId: {
         type: GraphQLID,
-        description: "Unique identifier of the prior task that this task depends upon",
+        description: "Unique identifier of the prior stepRule that this stepRule depends upon",
         resolve(stepRule) {
           return stepRule.priorStepId;
         }
       },
       priorResult: {
         type: GraphQLString,
-        description: "the result from the dependent task that this must be matched or not matched."
+        description: "the result from the dependent stepRule that this must be matched or not matched."
       },
       operator: {
         type: GraphQLString,
-        description: "The unique name for the task Rule",
+        description: "The unique name for the stepRule Rule",
         resolve(stepRule) {
           return stepRule.operator;
         }

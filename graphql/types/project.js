@@ -3,7 +3,8 @@ const GraphQLObjectType = GraphQL.GraphQLObjectType;
 const GraphQLString = GraphQL.GraphQLString;
 const GraphQLList = GraphQL.GraphQLList;
 const GraphQLID = GraphQL.GraphQLID;
-const TaskType = require('./task')
+
+const ProjectType = require('./project')
 const Models = require('../../models/index.js')
 
 module.exports = new GraphQLObjectType({
@@ -12,32 +13,72 @@ module.exports = new GraphQLObjectType({
     return {
       id: {
         type: GraphQLID,
-        description: "Unique identifier of the Project",
         resolve(Project) {
           return Project.id;
         }
       },
+      planId: {
+        type: GraphQLString,
+        resolve(Project) {
+          return Project.name;
+        }
+      },
+      parentId: {
+        type: GraphQLString,
+        resolve(Project) {
+          return Project.name;
+        }
+      },
       name: {
         type: GraphQLString,
-        description: "The unique name for the Project",
         resolve(Project) {
           return Project.name;
         }
       },
       description: {
         type: GraphQLString,
-        description: "A brief description of the Project",
         resolve(Project) {
-          return Project.description;
+          return Project.name;
         }
       },
-      // tasks: {
-      //   type: new GraphQLList(TaskType),
-      //   description: "The tasks associated to the group",
+      state: {
+        type: GraphQLString,
+        resolve(Project) {
+          return Project.name;
+        }
+      },
+      startDate: {
+        type: GraphQLString,
+        resolve(Project) {
+          return Project.name;
+        }
+      },
+      dueDate: {
+        type: GraphQLString,
+        resolve(Project) {
+          return Project.name;
+        }
+      },
+      completeDate: {
+        type: GraphQLString,
+        resolve(Project) {
+          return Project.name;
+        }
+      },
+      ownerId: {
+        type: GraphQLString,
+        resolve(Project) {
+          return Project.name;
+        }
+      },
+
+      // projects: {
+      //   type: new GraphQLList(ProjectType),
+      //   description: "The projects associated to the group",
       //   async resolve(Project) {
       //     let response = {}
-      //     await Project.getTasks().then((taskData) => {
-      //       response.tasks = taskData
+      //     await Project.getProjects().then((projectData) => {
+      //       response.projects = projectData
       //     }).catch((err) => {
       //       let errors = err.errors.map(error => {
       //         return {
@@ -48,7 +89,7 @@ module.exports = new GraphQLObjectType({
       //       response.message = "There was an error creating the group"
       //       response.errors = errors
       //     })
-      //     return response.tasks
+      //     return response.projects
 
       //   }
       // }

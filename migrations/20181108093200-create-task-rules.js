@@ -9,13 +9,16 @@ module.exports = {
       taskId: {
         type: Sequelize.UUID
       },
-      priorTaskId: {
+      priorId: {
         type: Sequelize.UUID
       },
       priorResult: {
         type: Sequelize.UUID
       },
       operator: {
+        type: Sequelize.STRING
+      },
+      name: {
         type: Sequelize.STRING
       },
       // Audit

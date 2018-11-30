@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     description: {
-      type: DataTypes.TEXT,
+      type: DataTypes.STRING,
     },
     parentID: {
       type: DataTypes.UUID,
@@ -35,22 +35,22 @@ module.exports = (sequelize, DataTypes) => {
   });
 
 
-  //========== ASSOCIATIONS ==========//
-  Step.associate = function (models) {
+  // //========== ASSOCIATIONS ==========//
+  // Step.associate = function (models) {
 
-    // Step belongs to a task group
-    models.Step.belongsTo(models.PlanStep, {
-      foreignKey: "stepId",
-      sourceKey: "id"
-    })
+  //   // Step belongs to a task group
+  //   models.Step.belongsTo(models.PlanStep, {
+  //     foreignKey: "stepId",
+  //     sourceKey: "id"
+  //   })
 
-    // Step has many task rules
-    // models.Step.hasMany(models.StepRule, {
-    //   foreignKey: "stepId",
-    //   sourceKey: "id"
-    // })
+  //   // Step has many task rules
+  //   // models.Step.hasMany(models.StepRule, {
+  //   //   foreignKey: "stepId",
+  //   //   sourceKey: "id"
+  //   // })
 
-  }
+  // }
 
 
   //========== INSTANCE METHODS ==========//
@@ -106,7 +106,7 @@ module.exports = (sequelize, DataTypes) => {
     var template = await this.getTemplate()
 
     var message = this.validateResult(userResult, template)
-    if (message !== 'success') { return 'Invalid result for this task.'}
+    if (message !== 'success') { return 'Invalid result for this task.' }
 
     this.complete(userResult)
 

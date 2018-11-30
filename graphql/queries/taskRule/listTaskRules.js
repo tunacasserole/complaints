@@ -3,20 +3,20 @@ const GraphQLList = GraphQL.GraphQLList
 const GraphQLString = GraphQL.GraphQLString
 const GraphQLInt = GraphQL.GraphQLInt
 const GraphQLObjectType = GraphQL.GraphQLObjectType;
-const GraphQLId = GraphQL.GraphQLID;
+const GraphQLID = GraphQL.GraphQLID;
 
 const Models = require('../../../models/index.js')
-const TaskType = require('../../types/task.js')
+const TaskRuleType = require('../../types/taskRule.js')
 
-// const TaskListType = new GraphQLObjectType({
-//   name: 'TaskList',
+// const TaskRuleListType = new GraphQLObjectType({
+//   name: 'TaskRuleList',
 //   fields() {
 //     return {
 //       id: {
-//         type: GraphQLId,
+//         type: GraphQLID,
 //       },
 //       templateId: {
-//         type: GraphQLId,
+//         type: GraphQLID,
 //       },
 //       status: {
 //         type: GraphQLString,
@@ -35,8 +35,8 @@ const TaskType = require('../../types/task.js')
 //       },
 //       templateName: {
 //         type: GraphQLString,
-//         resolve(task) {
-//           task.getTemplate().then((thing) => {
+//         resolve(taskRule) {
+//           taskRule.getTemplate().then((thing) => {
 //           // return thing.name
 //           })
 //         }
@@ -46,8 +46,8 @@ const TaskType = require('../../types/task.js')
 // })
 
 module.exports = {
-  type: new GraphQLList(TaskType),
-  description: 'Returns a list of all tasks in the system..',
+  type: new GraphQLList(TaskRuleType),
+  description: 'Returns a list of all taskRules in the system..',
   args: {
     limit: {
       type: GraphQLInt,
@@ -77,7 +77,7 @@ module.exports = {
     delete args.search
 
     // Issue query and return the promise
-    // return await Models.Task.findAll({ where: args, include: [{ model: Models.Template, required: true }], offset, limit })
-    return await Models.Task.findAll({ where: args })
+    // return await Models.TaskRule.findAll({ where: args, include: [{ model: Models.Template, required: true }], offset, limit })
+    return await Models.TaskRule.findAll({ where: args })
   }
 };

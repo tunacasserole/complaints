@@ -4,19 +4,19 @@ const GraphQLNonNull = GraphQL.GraphQLNonNull
 const GraphQLString = GraphQL.GraphQLString
 
 const Models = require('../../../models/index.js')
-const TaskType = require('../../types/task.js')
+const PlanType = require('../../types/plan.js')
 
 module.exports = {
-  type: TaskType,
-  description: 'Returns a single task for the supplied task id.',
+  type: PlanType,
+  description: 'Returns a single plan for the supplied plan id.',
   args: {
     id: {
       type: new GraphQLNonNull(GraphQLString),
-      description: 'The unique identifier of the task.',
+      description: 'The unique identifier of the plan.',
     }
   },
-  
+
   resolve: async (root, args) => {
-    return await Models.Task.findById(args.id)
+    return await Models.Plan.findById(args.id)
   }
 };

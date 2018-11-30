@@ -3,7 +3,7 @@ const GraphQLObjectType = GraphQL.GraphQLObjectType;
 const GraphQLString = GraphQL.GraphQLString;
 const GraphQLID = GraphQL.GraphQLID;
 
-const TaskType = require('./task')
+const TaskRuleType = require('./taskRule')
 const Models = require('../../models/index.js')
 
 module.exports = new GraphQLObjectType({
@@ -24,11 +24,11 @@ module.exports = new GraphQLObjectType({
           return taskRule.taskId;
         }
       },
-      priorTaskId: {
+      priorId: {
         type: GraphQLID,
         description: "Unique identifier of the prior task that this task depends upon",
         resolve(taskRule) {
-          return taskRule.taskId;
+          return taskRule.priorId;
         }
       },
       priorResult: {

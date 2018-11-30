@@ -7,14 +7,14 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       allowNull: false
     },
-    StepId: {
-      type: DataTypes.UUID
-    },
     name: {
       type: DataTypes.STRING,
       unique: true,
     },
-    priorStepId: {
+    StepId: {
+      type: DataTypes.UUID
+    },
+    priorId: {
       type: DataTypes.UUID
     },
     operator: {

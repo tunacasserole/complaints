@@ -4,7 +4,9 @@ const GraphQLString = GraphQL.GraphQLString;
 const GraphQLInt = GraphQL.GraphQLInt;
 const GraphQLID = GraphQL.GraphQLID;
 const GraphQLList = GraphQL.GraphQLList;
-const TaskType = require('./task')
+
+const StepType = require('./step')
+
 const Models = require('../../models/index.js')
 
 module.exports = new GraphQLObjectType({
@@ -34,7 +36,7 @@ module.exports = new GraphQLObjectType({
       },
       moduleName: {
         type: GraphQLString,
-        description: "Name of the module that will contain the logic for performing this task",
+        description: "Name of the module that will contain the logic for performing this step",
         resolve(step) {
           return step.moduleName;
         },
@@ -44,7 +46,7 @@ module.exports = new GraphQLObjectType({
       },
       moduleVersion: {
         type: GraphQLInt,
-        description: "Version of the task processing module to use when performing this task",
+        description: "Version of the step processing module to use when performing this step",
         resolve(step) {
           return step.moduleVersion;
         }
@@ -62,32 +64,10 @@ module.exports = new GraphQLObjectType({
       },
       results: {
         type: new GraphQLList(GraphQLString),
-        description: "A comma separated list of values the user can select from to set the result of the task.  Leave blank for free text",
+        description: "A comma separated list of values the user can select from to set the result of the step.  Leave blank for free text",
         resolve(step) {
           return step.results;
         }
-      },
-      tasks: {
-        type: new GraphQLList(TaskType),
-        description: "The tasks associated to the step",
-        async resolve(step) {
-          let response = {}
-          await step.getTasks().then((taskData) => {
-            response.tasks = taskData
-          }).catch((err) => {
-              let errors = err.errors.map(error => {
-                  return {
-                      code: error.path,
-                      message: error.message
-                  }
-              })
-              response.message = "There was an error creating the step"
-              response.errors = errors
-          })
-          return response.tasks
-
-        }
-
       }
     };
   }

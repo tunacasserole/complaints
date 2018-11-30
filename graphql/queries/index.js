@@ -11,23 +11,23 @@ const listSteps = require('./step/listSteps')
 const readStep = require('./step/readStep')
 
 // Projects
-const listProjects = require('./project/ListProjects')
-const readProject = require('./Project/readProject')
+const listProjects = require('./project/listProjects')
+const readProject = require('./project/readProject')
 
 // Project Tasks
 const listProjectTasks = require('./projectTask/listProjectTasks')
 const readProjectTask = require('./projectTask/readProjectTask')
 
 // Plans
-const listPlans = require('./plan/ListPlans')
-const readPlan = require('./Plan/readPlan')
+const listPlans = require('./plan/listPlans')
+const readPlan = require('./plan/readPlan')
 
 // Plan Steps
-const listPlanSteps = require('./planStep/ListPlanSteps')
-const readPlanStep = require('./PlanStep/readPlanStep')
+const listPlanSteps = require('./planStep/listPlanSteps')
+const readPlanStep = require('./planStep/readPlanStep')
 
 // Step Rules
-const listStepRules = require('./stepRule/ListStepRules')
+const listStepRules = require('./stepRule/listStepRules')
 const readStepRule = require('./stepRule/readStepRule')
 
 // Modules
@@ -53,7 +53,7 @@ module.exports = {
   // Projects
   listProjects,
   readProject,
- 
+
   // Projects Tasks
   listProjectTasks,
   readProjectTask,
@@ -61,7 +61,7 @@ module.exports = {
   // Plans
   listPlans,
   readPlan,
- 
+
   // Plan Steps
   listPlanSteps,
   readPlanStep,

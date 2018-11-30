@@ -3,47 +3,10 @@ const GraphQLList = GraphQL.GraphQLList
 const GraphQLString = GraphQL.GraphQLString
 const GraphQLInt = GraphQL.GraphQLInt
 const GraphQLObjectType = GraphQL.GraphQLObjectType;
-const GraphQLId = GraphQL.GraphQLID;
+const GraphQLID = GraphQL.GraphQLID;
 
 const Models = require('../../../models/index.js')
 const TaskType = require('../../types/task.js')
-
-// const TaskListType = new GraphQLObjectType({
-//   name: 'TaskList',
-//   fields() {
-//     return {
-//       id: {
-//         type: GraphQLId,
-//       },
-//       templateId: {
-//         type: GraphQLId,
-//       },
-//       status: {
-//         type: GraphQLString,
-//       },
-//       data: {
-//         type: GraphQLString,
-//       },
-//       dependencies: {
-//         type: GraphQLString,
-//       },
-//       dueDate: {
-//         type: GraphQLString,
-//       },
-//       result: {
-//         type: GraphQLString
-//       },
-//       templateName: {
-//         type: GraphQLString,
-//         resolve(task) {
-//           task.getTemplate().then((thing) => {
-//           // return thing.name
-//           })
-//         }
-//       }
-//     }
-//   }
-// })
 
 module.exports = {
   type: new GraphQLList(TaskType),
@@ -68,6 +31,8 @@ module.exports = {
   },
 
   resolve: async (root, args) => {
+    console.log('finding all-----------------')
+
     // Establish defaults and remove from arguments
     const offset = args.offset || 0
     const limit = args.limit || 10

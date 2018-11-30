@@ -6,110 +6,126 @@ module.exports = {
 
   up: async (queryInterface, Sequelize) => {
 
+    // Parent Plan
     // Plan
     let p = await Models.Plan.create({
-      name: 'Supplier readiness & preparation launch plan',
+      name: 'Expeditied Launch',
       description: 'Equivalent to copernicus launch'
     })
 
-    // Step
-    let s = await Models.Step.create({
+
+    // -------------- Child Plan - Product Development -----------
+    let p1 = await Models.Plan.create({
+      name: 'Product Development',
+      description: 'Equivalent to copernicus launch'
+    })
+
+    // Step 1
+    let s1 = await Models.Step.create({
       name: 'Define Product',
       description: 'Equivalent to copernicus task'
     })
-
-    // Plan Step
-    let ps = await Models.PlanStep.create({
-      planId: p.id,
-      stepId: s.id
+    let ps1 = await Models.PlanStep.create({
+      planId: p1.id,
+      stepId: s1.id
     })
 
-    //     let task2 = await Models.Task.create({
-    //       templateId: t2.id,
-    //       taskGroupId: tg.id
-    //     })
+    // Step 2
+    let s2 = await Models.Step.create({
+      name: 'Focus Group',
+      description: 'Equivalent to copernicus task'
+    })
+    let ps2 = await Models.PlanStep.create({
+      planId: p1.id,
+      stepId: s2.id
+    })
 
-    //     let t3 = await Models.Template.create({
-    //       name: 'Desired Quote Date',
-    //       resultType: 'date'
-    //     })
-    //     let task3 = await Models.Task.create({
-    //       templateId: t3.id,
-    //       taskGroupId: tg.id
-    //     })
+    // Step 3
+    let s3 = await Models.Step.create({
+      name: 'Finalize Design',
+      description: 'Equivalent to copernicus task'
+    })
+    let ps3 = await Models.PlanStep.create({
+      planId: p1.id,
+      stepId: s3.id
+    })
 
-    //     let t4 = await Models.Template.create({
-    //       name: 'Desired Build Date',
-    //       resultType: 'date'
-    //     })
-    //     let task4 = await Models.Task.create({
-    //       templateId: t4.id,
-    //       taskGroupId: tg.id
-    //     })
 
-    //     let t5 = await Models.Template.create({
-    //       name: 'Desired Early Ship Date',
-    //       resultType: 'date'
-    //     })
-    //     let task5 = await Models.Task.create({
-    //       templateId: t4.id,
-    //       taskGroupId: tg.id
-    //     })
+    // -------------- Child Plan - Marketing ------------
+    let mp1 = await Models.Plan.create({
+      name: 'Marketing',
+      description: 'Equivalent to copernicus launch'
+    })
 
-    //     let t6 = await Models.Template.create({
-    //       name: 'Platform PM/Options PM Sync up on Options status at DPC exit',
-    //       resultType: 'yesNo'
-    //     })
-    //     let task6 = await Models.Task.create({
-    //       templateId: t6.id,
-    //       taskGroupId: tg.id
-    //     })
+    // Step 1
+    let ms1 = await Models.Step.create({
+      name: 'Develop Materials',
+      description: 'Equivalent to copernicus task'
+    })
+    let mps1 = await Models.PlanStep.create({
+      planId: mp1.id,
+      stepId: ms1.id
+    })
 
-    //     let t7 = await Models.Template.create({
-    //       name: 'Packaging and label requirements complete',
-    //       resultType: 'yesNo'
-    //     })
-    //     let task7 = await Models.Task.create({
-    //       templateId: t7.id,
-    //       taskGroupId: tg.id
-    //     })
+    // Step 2
+    let ms2 = await Models.Step.create({
+      name: 'Plan Rollout',
+      description: 'Equivalent to copernicus task'
+    })
+    let mps2 = await Models.PlanStep.create({
+      planId: mp1.id,
+      stepId: ms2.id
+    })
 
-    //     let t8 = await Models.Template.create({
-    //       name: 'Platform shared options demand provided to shared options PMs',
-    //       resultType: 'yesNo'
-    //     })
-    //     let task8 = await Models.Task.create({
-    //       templateId: t8.id,
-    //       taskGroupId: tg.id
-    //     })
+    // Step 3
+    let ms3 = await Models.Step.create({
+      name: 'Email Product Development',
+      description: 'Equivalent to copernicus task'
+    })
+    let mps3 = await Models.PlanStep.create({
+      planId: mp1.id,
+      stepId: ms3.id
+    })
 
-    //     let t9 = await Models.Template.create({
-    //       name: 'Early ship shop floor systems setup in applicable factories',
-    //       resultType: 'yesNo'
-    //     })
-    //     let task9 = await Models.Task.create({
-    //       templateId: t9.id,
-    //       taskGroupId: tg.id
-    //     })
 
-    //     let t10 = await Models.Template.create({
-    //       name: 'Early ship supplier materials buffer in place.',
-    //       resultType: 'yesNo'
-    //     })
-    //     let task10 = await Models.Task.create({
-    //       templateId: t10.id,
-    //       taskGroupId: tg.id
-    //     })
+    // -------------- Child Plan - Factory ------------
+    let fp1 = await Models.Plan.create({
+      name: 'Factory',
+      description: 'Equivalent to copernicus launch'
+    })
 
-    //     let t11 = await Models.Template.create({
-    //       name: 'Get a tweet from someone.',
-    //       resultType: 'compute',
-    //       moduleName: 'getTweet'
-    //     })
-    //     let task11 = await Models.Task.create({
-    //       templateId: t11.id,
-    //       taskGroupId: tg.id
-    //     })
+    // Step 1
+    let fs1 = await Models.Step.create({
+      name: 'Attach Bill of Materials',
+      description: 'Equivalent to copernicus task'
+    })
+    let fps1 = await Models.PlanStep.create({
+      planId: fp1.id,
+      stepId: fs1.id
+    })
+
+    // Step 2
+    let fs2 = await Models.Step.create({
+      name: 'Procure Parts',
+      description: 'Equivalent to copernicus task'
+    })
+    let fps2 = await Models.PlanStep.create({
+      planId: fp1.id,
+      stepId: fs2.id
+    })
+
+    // Step 3
+    let fs3 = await Models.Step.create({
+      name: 'Finalize Build',
+      description: 'Equivalent to copernicus task'
+    })
+    let fps3 = await Models.PlanStep.create({
+      planId: fp1.id,
+      stepId: fs3.id
+    })
+
+
+
 
     console.log('------------ END - seeding database -----------')
 

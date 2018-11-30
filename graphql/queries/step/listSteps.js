@@ -2,11 +2,13 @@ const GraphQL = require('graphql')
 const GraphQLList = GraphQL.GraphQLList
 const GraphQLString = GraphQL.GraphQLString
 const GraphQLInt = GraphQL.GraphQLInt
+
+const StepType = require('../../types/step.js')
+
 const Models = require('../../../models/index.js')
-const TemplateType = require('../../types/step.js')
 
 module.exports = {
-  type: new GraphQLList(TemplateType),
+  type: new GraphQLList(StepType),
   description: 'Returns a list of templates in the system..',
   args: {
     limit: {
@@ -37,6 +39,6 @@ module.exports = {
     delete args.search
 
     // Issue query and return the promise
-    return await Models.Template.findAll()
+    return await Models.Step.findAll()
   }
 };

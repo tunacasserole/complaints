@@ -3,10 +3,94 @@ const GraphQLList = GraphQL.GraphQLList
 const GraphQLString = GraphQL.GraphQLString
 const GraphQLInt = GraphQL.GraphQLInt
 const GraphQLObjectType = GraphQL.GraphQLObjectType;
-const GraphQLId = GraphQL.GraphQLID;
+const GraphQLID = GraphQL.GraphQLID;
 
 const Models = require('../../../models/index.js')
-const PlanType = require('../../types/plan.js')
+const StepType = require('../../types/step.js')
+
+const PlanType = new GraphQLObjectType({
+  name: "PlanType",
+  fields() {
+    return {
+      id: {
+        type: GraphQLID,
+        resolve(plan) {
+          return plan.id;
+        }
+      },
+      parentId: {
+        type: GraphQLID,
+        resolve(plan) {
+          return plan.parentId;
+        }
+      },
+      name: {
+        type: GraphQLString,
+        resolve(plan) {
+          return plan.name;
+        }
+      },
+      description: {
+        type: GraphQLString,
+        resolve(plan) {
+          return plan.description;
+        }
+      },
+      businessUnit: {
+        type: GraphQLID,
+        resolve(plan) {
+          return plan.businessUnit;
+        }
+      },
+      productClass: {
+        type: GraphQLString,
+        resolve(plan) {
+          return plan.descproductClassription;
+        }
+      },
+      duration: {
+        type: GraphQLInt,
+        resolve(plan) {
+          return plan.duration;
+        }
+      },
+      version: {
+        type: GraphQLInt,
+        resolve(plan) {
+          return plan.version;
+        }
+      },
+      scheduleMethod: {
+        type: GraphQLString,
+        resolve(plan) {
+          return plan.scheduleMethod;
+        }
+      },
+      steps: {
+        type: new GraphQLList(StepType),
+        description: "The steps associated to the group",
+        async resolve(plan) {
+          let response = {}
+          await plan.getSteps().then((stepData) => {
+            response.steps = stepData
+          }).catch((err) => {
+            let errors = err.errors.map(error => {
+              return {
+                code: error.path,
+                message: error.message
+              }
+            })
+            response.message = "There was an error listing the steps"
+            response.errors = errors
+          })
+          return response.steps
+
+        }
+      }
+    }
+  }
+
+});
 
 module.exports = {
   type: new GraphQLList(PlanType),

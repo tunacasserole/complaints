@@ -9,7 +9,7 @@ module.exports = {
       stepId: {
         type: Sequelize.UUID
       },
-      priorStepId: {
+      priorId: {
         type: Sequelize.UUID
       },
       priorResult: {

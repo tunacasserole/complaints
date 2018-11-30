@@ -1,9 +1,10 @@
 const GraphQL = require("graphql");
 const GraphQLObjectType = GraphQL.GraphQLObjectType;
+const GraphQLInt = GraphQL.GraphQLInt;
 const GraphQLString = GraphQL.GraphQLString;
 const GraphQLID = GraphQL.GraphQLID;
 
-const TaskType = require('./task')
+const PlanStepType = require('./planStep')
 const Models = require('../../models/index.js')
 
 module.exports = new GraphQLObjectType({
@@ -28,7 +29,21 @@ module.exports = new GraphQLObjectType({
         type: GraphQLID,
         description: "Unique identifier of the prior task that this task depends upon",
         resolve(PlanStep) {
-          return PlanStep.taskId;
+          return PlanStep.stepId;
+        }
+      },
+      sequence: {
+        type: GraphQLInt,
+        description: "Unique identifier of the prior task that this task depends upon",
+        resolve(PlanStep) {
+          return PlanStep.stepId;
+        }
+      },
+      offset: {
+        type: GraphQLInt,
+        description: "Unique identifier of the prior task that this task depends upon",
+        resolve(PlanStep) {
+          return PlanStep.stepId;
         }
       },
     }

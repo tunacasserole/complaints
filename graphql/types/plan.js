@@ -1,9 +1,9 @@
 const GraphQL = require("graphql");
 const GraphQLObjectType = GraphQL.GraphQLObjectType;
 const GraphQLString = GraphQL.GraphQLString;
-const GraphQLList = GraphQL.GraphQLList;
+const GraphQLInt = GraphQL.GraphQLInt;
 const GraphQLID = GraphQL.GraphQLID;
-const TaskType = require('./task')
+const PlanType = require('./plan')
 const Models = require('../../models/index.js')
 
 module.exports = new GraphQLObjectType({
@@ -12,31 +12,64 @@ module.exports = new GraphQLObjectType({
     return {
       id: {
         type: GraphQLID,
-        description: "Unique identifier of the TaskGroup",
-        resolve(taskGroup) {
-          return taskGroup.id;
+        resolve(plan) {
+          return plan.id;
+        }
+      },
+      parentId: {
+        type: GraphQLID,
+        resolve(plan) {
+          return plan.parentId;
         }
       },
       name: {
         type: GraphQLString,
-        description: "The unique name for the taskGroup",
-        resolve(taskGroup) {
-          return taskGroup.name;
+        resolve(plan) {
+          return plan.name;
         }
       },
       description: {
         type: GraphQLString,
-        description: "A brief description of the taskGroup",
-        resolve(taskGroup) {
-          return taskGroup.description;
+        resolve(plan) {
+          return plan.description;
+        }
+      },
+      businessUnit: {
+        type: GraphQLID,
+        resolve(plan) {
+          return plan.businessUnit;
+        }
+      },
+      productClass: {
+        type: GraphQLString,
+        resolve(plan) {
+          return plan.descproductClassription;
+        }
+      },
+      duration: {
+        type: GraphQLInt,
+        resolve(plan) {
+          return plan.duration;
+        }
+      },
+      version: {
+        type: GraphQLInt,
+        resolve(plan) {
+          return plan.version;
+        }
+      },
+      scheduleMethod: {
+        type: GraphQLString,
+        resolve(plan) {
+          return plan.scheduleMethod;
         }
       },
       // tasks: {
-      //   type: new GraphQLList(TaskType),
+      //   type: new GraphQLList(PlanType),
       //   description: "The tasks associated to the group",
-      //   async resolve(taskGroup) {
+      //   async resolve(plan) {
       //     let response = {}
-      //     await taskGroup.getTasks().then((taskData) => {
+      //     await plan.getTasks().then((taskData) => {
       //       response.tasks = taskData
       //     }).catch((err) => {
       //       let errors = err.errors.map(error => {

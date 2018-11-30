@@ -14,8 +14,8 @@ module.exports = {
       description: 'The unique identifier of the task group.',
     }
   },
-  
+
   resolve: async (root, args) => {
-    return await Models.planStep.findById(args.id)
+    return await Models.PlanStep.findById(args.id)
   }
 };

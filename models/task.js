@@ -39,22 +39,22 @@ module.exports = (sequelize, DataTypes) => {
   });
 
 
-  //========== ASSOCIATIONS ==========//
-  Task.associate = function (models) {
+  // //========== ASSOCIATIONS ==========//
+  // Task.associate = function (models) {
 
-    // Task belongs to a template
-    models.Task.belongsTo(models.ProjectTask, {
-      foreignKey: "taskId",
-      sourceKey: "id"
-    })
+  //   // Task belongs to a Project Task
+  //   models.Task.belongsTo(models.ProjectTask, {
+  //     foreignKey: "taskId",
+  //     sourceKey: "id"
+  //   })
 
-    // Task has many task rules
-    models.Task.hasMany(models.TaskRule, {
-      foreignKey: "taskId",
-      sourceKey: "id"
-    })
+  //   // Task has many task rules
+  //   models.Task.hasMany(models.TaskRule, {
+  //     foreignKey: "taskId",
+  //     sourceKey: "id"
+  //   })
 
-  }
+  // }
 
 
   //========== INSTANCE METHODS ==========//
@@ -110,7 +110,7 @@ module.exports = (sequelize, DataTypes) => {
     var template = await this.getTemplate()
 
     var message = this.validateResult(userResult, template)
-    if (message !== 'success') { return 'Invalid result for this task.'}
+    if (message !== 'success') { return 'Invalid result for this task.' }
 
     this.complete(userResult)
 

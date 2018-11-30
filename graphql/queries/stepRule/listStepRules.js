@@ -4,10 +4,10 @@ const GraphQLString = GraphQL.GraphQLString
 const GraphQLInt = GraphQL.GraphQLInt
 
 const Models = require('../../../models/index.js')
-const TaskRuleType = require('../../types/taskRule.js')
+const StepRuleType = require('../../types/stepRule.js')
 
 module.exports = {
-  type: new GraphQLList(TaskRuleType),
+  type: new GraphQLList(StepRuleType),
   description: 'Returns a list of all task groups in the system..',
   args: {
     limit: {
@@ -38,6 +38,6 @@ module.exports = {
     delete args.search
 
     // Issue query and return the promise
-    return await Models.TaskRule.findAll({ where: args, include: [], offset, limit })
+    return await Models.StepRule.findAll({ where: args, include: [], offset, limit })
   }
 };

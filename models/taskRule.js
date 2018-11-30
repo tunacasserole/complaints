@@ -10,14 +10,14 @@ module.exports = (sequelize, DataTypes) => {
     taskId: {
       type: DataTypes.UUID
     },
-    priorTaskId: {
+    priorId: {
       type: DataTypes.UUID
     },
     name: {
       type: DataTypes.STRING,
       unique: true,
     },
-    result: {
+    priorResult: {
       type: DataTypes.STRING
     },
     operator: {

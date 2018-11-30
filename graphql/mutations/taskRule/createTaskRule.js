@@ -2,28 +2,46 @@ const GraphQL = require("graphql");
 const GraphQLInputObjectType = GraphQL.GraphQLInputObjectType;
 const GraphQLObjectType = GraphQL.GraphQLObjectType;
 const GraphQLString = GraphQL.GraphQLString;
+const GraphQLID = GraphQL.GraphQLID;
+const GraphQLInt = GraphQL.GraphQLInt;
 const GraphQLList = GraphQL.GraphQLList;
 const GraphQLNonNull = GraphQL.GraphQLNonNull;
 
+const TaskRuleType = require('../../types/taskRule')
+
 const ErrorType = require('../../types/error')
-const TaskType = require('../../types/task')
 const Models = require('../../../models/index.js')
 
 const CreateTaskRuleInput = new GraphQLInputObjectType({
     name: "CreateTaskRuleInput",
-    description: 'The primary required input to create a new task is the id of the template you wish to use.',
+    description: 'Create a new task rule.',
     fields() {
         return {
-            taskId: {
+            name: {
                 type: new GraphQLNonNull(GraphQLString)
-            }
+            },
+            taskId: {
+                type: new GraphQLNonNull(GraphQLID)
+            },
+            priorId: {
+                type: GraphQLString,
+            },
+            priorResult: {
+                type: GraphQLString,
+            },
+            operator: {
+                type: GraphQLString,
+            },
+            sequence: {
+                type: GraphQLInt,
+            },
         }
     }
 })
 
 const CreateTaskRulePayload = new GraphQLObjectType({
     name: "CreateTaskRulePayload",
-    description: 'The payload to be returned includes any errors, messages and the task itself.',
+    description: 'The payload to be returned includes any errors, messages and the task rule itself.',
     fields() {
         return {
             message: {
@@ -35,7 +53,7 @@ const CreateTaskRulePayload = new GraphQLObjectType({
                 description: 'The error codes and descriptions for any unsuccesful request'
             },
             task: {
-                type: TaskType,
+                type: TaskRuleType,
                 description: 'The task that was created.'
             }
         }
@@ -54,9 +72,9 @@ module.exports = {
 
     resolve: async (root, args) => {
         let response = { message: "Succesfully created the task." }
-        
-        await Models.Task.create(args.input).then((task) => {
-            response.task = task
+
+        await Models.TaskRule.create(args.input).then((taskRule) => {
+            response.taskRule = taskRule
         }).catch((err) => {
             let errors = err.errors.map(error => {
                 return {
@@ -64,10 +82,10 @@ module.exports = {
                     message: error.message
                 }
             })
-            response.message = "There was an error creating the task"
+            response.message = "There was an error creating the task rule."
             response.errors = errors
 
-            })
+        })
 
         return response
     }
