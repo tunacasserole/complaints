@@ -14,10 +14,9 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
     },
 
-    id,name
 
 
   }, {});
 
-return Complaint;
+  return Complaint;
 };
