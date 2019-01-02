@@ -1,0 +1,17 @@
+{
+  "name": "complaints",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "Aaron Henderson <aaron.henderson@rfa.sc.gov>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/Qwinix/hpe-task-poc",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

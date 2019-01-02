@@ -2,7 +2,7 @@ require('dotenv').config();
 
 module.exports = {
     "username": "root",
-    "database": "task_development",
+    "database": "phoenix-dev",
     "host": "localhost",
     "dialect": "mysql",
 }
