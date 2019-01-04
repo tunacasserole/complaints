@@ -1,10 +1,9 @@
-const createTask = require('./task/createTask')
-const editTask = require('./task/editTask')
-
+const createComplaint = require('./complaint/createComplaint.js')
+const updateComplaint = require('./complaint/updateComplaint.js')
+const deleteComplaint = require('./complaint/deleteComplaint.js')
 
 module.exports = {
-
-    createTask,
-    editTask,
-
+    createComplaint,
+    updateComplaint,
+    deleteComplaint,
 };

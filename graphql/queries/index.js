@@ -1,3 +1,7 @@
-// Tasks
-const listTasks = require('./task/listTasks')
-const readTask = require('./task/readTask')
+const listComplaints = require('./complaint/listComplaints.js')
+const readComplaint = require('./complaint/readComplaint.js')
+
+module.exports = {
+  listComplaints,
+  readComplaint
+}

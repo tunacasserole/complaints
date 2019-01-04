@@ -11,12 +11,12 @@ module.exports = new GraphQLSchema({
     query: new GraphQLObjectType({
         name: 'Query',
         fields: queries,
-        description: 'HPE Task Management API'
+        description: 'South Carolina DHHS Feedback Microservice.'
     }),
 
     mutation: new GraphQLObjectType({
         name: 'Mutation',
         fields: mutations,
-        description: 'HPE Task Management API'
+        description: 'South Carolina DHHS Feedback Microservice.'
     })
 })

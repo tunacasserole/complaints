@@ -1,37 +1,74 @@
 id:
+  type: INT(11)
 program_id:
+  type: INT(11)
 client_id:
+  type: INT(11)
 provider_id:
+  type: INT(11)
 owner_id:
+  type: INT(11)
 worker_id:
+  type: INT(11)
 resolver_id:
+  type: INT(11)
 state:
+  type: VARCHAR(255)
 complainant_name:
+  type: VARCHAR(255)
 complainant_id:
+  type: INT(11)
 provider_number:
+  type: VARCHAR(255)
 reason_name:
+  type: VARCHAR(255)
 referred_to:
+  type: VARCHAR(255)
 complainant_type_id:
+  type: INT(11)
 complainant_relationship_id:
+  type: INT(11)
 reason_id:
+  type: INT(11)
 description:
+  type: TEXT
 created_at:
+  type: DATETIME
 updated_at:
+  type: DATETIME
 deleted_at:
+  type: DATETIME
 created_by:
+  type: INT(11)
 updated_by:
+  type: INT(11)
 deleted_by:
+  type: INT(11)
 resolved_on:
+  type: DATE
 occurred_on:
+  type: DATE
 case_manager_id:
+  type: INT(11)
 service_ids:
+  type: VARCHAR(255)
 service_delivery_problem_ids:
+  type: VARCHAR(255)
 contract_problem_ids:
+  type: VARCHAR(255)
 billed_on:
+  type: DATE
 documented_on:
+  type: DATE
 due_on:
+  type: DATE
 completed_on:
+  type: DATE
 started_on:
+  type: DATE
 ended_on:
+  type: DATE
 aps_contacted_on:
+  type: DATE
 hospitalizations_within_30_days:
+  type: TINYINT(1)

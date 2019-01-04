@@ -18,7 +18,11 @@ var sequelize = new Sequelize(
     host: config.host,
 
     // Global Options
-    paranoid: true
+    paranoid: true,
+
+    define: {
+      timestamps: false
+    }
   });
 
 fs
